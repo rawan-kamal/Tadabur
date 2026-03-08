@@ -1,0 +1,410 @@
+/* ── ABOUT US PAGE ──────────────────────────────────── */
+
+.au-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  position: relative;
+}
+
+/* ── HERO ───────────────────────────────────────────── */
+.au-hero {
+  background: linear-gradient(
+    to bottom,
+    var(--primary-color),
+    var(--primary-50),
+    rgba(194,176,152,0.1),
+    #fff
+  );
+  padding: 3.5rem 0 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.au-hero-inner {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.au-hero-text { flex: 1; }
+
+.au-hero-title {
+  font-family: var(--font-main);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin: 0 0 1rem;
+}
+
+.au-hero-desc {
+  font-family: var(--font-main);
+  font-size: 1.05rem;
+  color: var(--primary-text-color);
+  line-height: 2;
+  margin: 0 0 1.8rem;
+}
+
+.au-hero-btn {
+  padding: 10px 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.au-hero-img { flex-shrink: 0; }
+
+.au-hero-circle {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--primary-color);
+  box-shadow: 0 20px 60px rgba(194,176,152,0.3);
+}
+
+/* ── SECTIONS ───────────────────────────────────────── */
+.au-section {
+  padding: 4rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.au-section-tinted {
+  background: var(--secondary-color);
+}
+
+/* ── FADEL SOLIMAN ──────────────────────────────────── */
+.au-fadel-row {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+}
+
+.au-fadel-img-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.au-fadel-img {
+  width: 240px;
+  border-radius: 20px;
+  object-fit: cover;
+  border: 2px solid var(--primary-50);
+  box-shadow: 0 12px 40px rgba(194,176,152,0.25);
+}
+
+.au-fadel-badge {
+  position: absolute;
+  bottom: -12px;
+  right: 50%;
+  transform: translateX(50%);
+  background: var(--primary-dark);
+  color: var(--primary-color);
+  padding: 0.3rem 1rem;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.au-fadel-text { flex: 1; }
+
+.au-fadel-title {
+  font-family: var(--font-main);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin: 0 0 1rem;
+}
+
+.au-fadel-text p {
+  font-size: 0.95rem;
+  color: var(--primary-text-color);
+  line-height: 2;
+  margin-bottom: 0.9rem;
+}
+
+.au-link {
+  color: var(--primary-dark);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--primary-color);
+}
+
+/* Stats row */
+.au-fadel-stats {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.au-stat {
+  background: var(--secondary-color);
+  border: 1.5px solid var(--primary-50);
+  border-radius: 14px;
+  padding: 0.9rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  min-width: 90px;
+}
+
+.au-stat-icon {
+  color: var(--primary-color);
+  font-size: 1rem;
+}
+
+.au-stat-num {
+  font-family: var(--font-main);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.au-stat-label {
+  font-size: 0.72rem;
+  color: var(--primary-text-color);
+  opacity: 0.8;
+}
+
+/* ── FEATURES GRID ──────────────────────────────────── */
+.au-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.3rem;
+  margin-bottom: 2.5rem;
+}
+
+.au-feature-card {
+  background: #fff;
+  border-radius: 20px;
+  border: 1.5px solid var(--primary-50);
+  padding: 1.6rem;
+  transition: all 0.3s;
+}
+
+.au-feature-card:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(194,176,152,0.2);
+}
+
+/* Platform stats bar */
+.au-platform-stats {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: 1.5rem;
+  background: var(--primary-dark);
+  border-radius: 20px;
+}
+
+.au-platform-stats .au-stat { background: rgba(255,255,255,0.06); border-color: rgba(194,176,152,0.2); }
+.au-platform-stats .au-stat-num   { color: var(--primary-color); }
+.au-platform-stats .au-stat-label { color: rgba(255,255,255,0.6); }
+.au-platform-stats .au-stat-icon  { color: var(--primary-color); }
+
+/* ── GOAL & VISION ──────────────────────────────────── */
+.au-gv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.au-gv-card {
+  background: #fff;
+  border-radius: 20px;
+  border: 1.5px solid var(--primary-50);
+  padding: 2rem;
+  transition: all 0.3s;
+}
+
+.au-gv-card:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(194,176,152,0.2);
+}
+
+.au-gv-icon {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  background: var(--primary-dark);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--primary-color);
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.au-gv-title {
+  font-family: var(--font-main);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin: 0 0 0.8rem;
+}
+
+.au-gv-text {
+  font-size: 0.92rem;
+  color: var(--primary-text-color);
+  line-height: 2;
+  margin: 0;
+}
+
+/* ── DEVELOPER CARD ─────────────────────────────────── */
+.au-dev-card {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  background: #fff;
+  border: 1.5px solid var(--primary-50);
+  border-radius: 24px;
+  padding: 2rem 2.5rem;
+  max-width: 680px;
+  margin: 0 auto;
+  transition: all 0.3s;
+}
+
+.au-dev-card:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 16px 40px rgba(194,176,152,0.2);
+  transform: translateY(-3px);
+}
+
+.au-dev-avatar {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: var(--primary-dark);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--primary-color);
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.au-dev-name {
+  font-family: var(--font-main);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin: 0 0 0.5rem;
+}
+
+.au-dev-bio {
+  font-size: 0.9rem;
+  color: var(--primary-text-color);
+  line-height: 1.9;
+  margin: 0 0 1rem;
+}
+
+.au-dev-links {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.au-dev-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  border: 1.5px solid var(--primary-50);
+  background: transparent;
+  color: var(--primary-dark);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.au-dev-link:hover {
+  background: var(--primary-dark);
+  color: var(--primary-color);
+  border-color: var(--primary-dark);
+}
+
+.au-dev-link i { font-size: 0.95rem; }
+
+/* ── FAQ ────────────────────────────────────────────── */
+.au-faq-sub {
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--primary-text-color);
+  opacity: 0.75;
+  margin: -1rem 0 2rem;
+}
+
+.au-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.au-faq-item {
+  border: 1.5px solid var(--primary-50);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+  background: #fff;
+}
+
+.au-faq-item.au-faq-open {
+  border-color: var(--primary-color);
+}
+
+.au-faq-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 1.4rem;
+  background: none;
+  border: none;
+  font-family: var(--font-main);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  cursor: pointer;
+  text-align: right;
+  gap: 1rem;
+}
+
+.au-faq-chevron {
+  color: var(--primary-color);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.au-faq-a {
+  padding: 0 1.4rem 1.2rem;
+  font-size: 0.92rem;
+  color: var(--primary-text-color);
+  line-height: 1.9;
+  border-top: 1px solid var(--secondary-color);
+  padding-top: 1rem;
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width: 900px) {
+  .au-hero-inner    { flex-direction: column-reverse; text-align: center; }
+  .au-hero-circle   { width: 200px; height: 200px; }
+  .au-fadel-row     { flex-direction: column; align-items: center; }
+  .au-fadel-img     { width: 200px; }
+  .au-gv-grid       { grid-template-columns: 1fr; }
+  .au-fadel-stats   { justify-content: center; }
+  .au-features-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 580px) {
+  .au-features-grid { grid-template-columns: 1fr; }
+}

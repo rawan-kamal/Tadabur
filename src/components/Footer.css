@@ -1,0 +1,79 @@
+/* ── FOOTER ─────────────────────────────────────────── */
+.main-color {
+  color: var(--primary-color);
+}
+.h-footer {
+  background-color: var(--primary-dark);
+  color: rgba(255,255,255,0.7);
+  padding: 3rem 0 1.5rem;
+  margin-top: auto;
+}
+
+.h-footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+}
+
+.h-footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+  color: #fff;
+}
+
+.h-footer-logo h5 { margin: 0; font-weight: 700; font-size: 1.2rem; }
+
+.h-footer-desc {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.h-footer-col-title {
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.h-footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.h-footer-links a {
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  font-size: 0.88rem;
+  transition: color 0.2s;
+}
+
+.h-footer-links a:hover { color: var(--primary-color); }
+
+.h-footer-hr {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 1.2rem;
+}
+
+.h-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.4);
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.h-footer-bottom p { margin: 0; }
+.h-footer-bottom strong { color: rgba(255,255,255,0.6); }

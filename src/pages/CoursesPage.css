@@ -1,0 +1,413 @@
+.cp-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #faf8f5;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ── HERO ───────────────────────────────────────────── */
+.cp-hero {
+  background: linear-gradient(
+    120deg,
+    var(--primary-color) 0%,
+    var(--primary-color) 100%
+  );
+  padding: 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative geometric arc */
+.cp-hero::before {
+  content: "";
+  position: absolute;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  height: 120px;
+  background: #faf8f5;
+  border-radius: 50% 50% 0 0;
+}
+
+/* Subtle ornament top-right */
+.cp-hero::after {
+  content: "❋";
+  position: absolute;
+  top: 1.5rem;
+  left: 2.5rem;
+  font-size: 4rem;
+  color: rgba(36, 33, 28, 0.06);
+  pointer-events: none;
+  line-height: 1;
+}
+
+.cp-hero-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.cp-hero-title {
+  font-family: 'Amiri', serif;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 700;
+  color: var(--primary-dark, #24211c);
+  margin: 0 0 0.6rem;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+}
+
+.cp-hero-sub {
+  font-family: 'Cairo', sans-serif;
+  font-size: 1rem;
+  color: var(--primary-dark, #24211c);
+  margin: 0;
+  max-width: 500px;
+  margin-inline: auto;
+  line-height: 1.8;
+}
+
+/* ── MAIN CONTENT AREA ──────────────────────────────── */
+.cp-main {
+  flex: 1;
+  padding: 3rem 0 5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── TOOLBAR ────────────────────────────────────────── */
+.cp-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(194, 176, 152, 0.3);
+}
+
+/* ── FILTER BUTTONS ─────────────────────────────────── */
+.cp-filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.cp-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 1.1rem;
+  border-radius: 100px;
+  border: 1.5px solid rgba(194, 176, 152, 0.5);
+  background: transparent;
+  color: var(--primary-text-color, #564734);
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.cp-filter-btn i {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.cp-filter-btn:hover {
+  background: rgba(194, 176, 152, 0.18);
+  border-color: var(--primary-color, #c2b098);
+  color: var(--primary-dark, #24211c);
+}
+
+.cp-filter-btn.active {
+  background: var(--primary-dark, #24211c);
+  border-color: var(--primary-dark, #24211c);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(36, 33, 28, 0.22);
+}
+
+.cp-filter-btn.active i { opacity: 1; }
+
+/* ── COUNT BADGE ────────────────────────────────────── */
+.cp-count {
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.82rem;
+  color: #a09080;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.cp-count i { font-size: 0.75rem; }
+.cp-count strong { color: var(--primary-dark, #24211c); font-weight: 700; }
+
+/* ── GRID ───────────────────────────────────────────── */
+.cp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+}
+
+/* ── CARD ───────────────────────────────────────────── */
+.cp-card {
+  background: #fff;
+  border-radius: 20px;
+  border: 1.5px solid rgba(194, 176, 152, 0.3);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+  position: relative;
+}
+
+.cp-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(36, 33, 28, 0.11), 0 4px 12px rgba(194, 176, 152, 0.2);
+  border-color: var(--primary-color, #c2b098);
+}
+
+/* Left accent strip */
+.cp-card-strip {
+  height: 4px;
+  width: 100%;
+  transition: height 0.22s ease;
+  flex-shrink: 0;
+}
+
+.cp-card:hover .cp-card-strip { height: 5px; }
+
+/* ── CARD BODY ──────────────────────────────────────── */
+.cp-card-body {
+  padding: 1.4rem 1.4rem 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cp-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.cp-card-title {
+  font-family: 'Amiri', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--primary-dark, #24211c);
+  line-height: 1.5;
+  flex: 1;
+}
+
+/* ── BADGES ─────────────────────────────────────────── */
+.cp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.22rem 0.7rem;
+  border-radius: 100px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cp-badge-new {
+  background: rgba(194, 176, 152, 0.15);
+  color: #8a7560;
+  border: 1px solid rgba(194, 176, 152, 0.4);
+}
+
+.cp-badge-active {
+  background: rgba(194, 176, 152, 0.2);
+  color: var(--primary-dark, #24211c);
+  border: 1px solid rgba(194, 176, 152, 0.6);
+}
+
+.cp-badge-done {
+  background: rgba(76, 175, 138, 0.1);
+  color: #2e7d5e;
+  border: 1px solid rgba(76, 175, 138, 0.3);
+}
+
+/* ── INSTRUCTOR ─────────────────────────────────────── */
+.cp-instructor {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.78rem;
+  color: #a09080;
+}
+
+.cp-instructor-icon { font-size: 0.7rem; }
+
+/* ── DESCRIPTION ────────────────────────────────────── */
+.cp-desc {
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.8rem;
+  color: #8a7a6a;
+  line-height: 1.75;
+  margin: 0;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── CARD FOOTER ────────────────────────────────────── */
+.cp-card-footer {
+  padding: 1rem 1.4rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  border-top: 1px solid rgba(194, 176, 152, 0.15);
+}
+
+/* ── PROGRESS ───────────────────────────────────────── */
+.cp-progress-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.73rem;
+  color: #a09080;
+  margin-bottom: 0.4rem;
+}
+
+.cp-progress-row i { margin-left: 0.3rem; font-size: 0.7rem; }
+
+.cp-progress-bar {
+  height: 5px;
+  background: rgba(194, 176, 152, 0.2);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.cp-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color, #c2b098), #d4c4ae);
+  border-radius: 100px;
+  transition: width 0.6s ease;
+}
+
+/* done = green fill */
+.cp-badge-done ~ .cp-card-footer .cp-progress-fill,
+.cp-btn-done ~ .cp-progress-fill {
+  background: linear-gradient(90deg, #4caf8a, #6bc9a6);
+}
+
+/* ── CTA BUTTON ─────────────────────────────────────── */
+.cp-card-btn {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border-radius: 100px;
+  border: 1.5px solid rgba(194, 176, 152, 0.4);
+  background: transparent;
+  color: var(--primary-dark, #24211c);
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.22s ease;
+}
+
+.cp-card-btn:hover {
+  background: var(--primary-dark, #24211c);
+  border-color: var(--primary-dark, #24211c);
+  color: #fff;
+}
+
+.cp-btn-active {
+  background: var(--primary-color, #c2b098);
+  border-color: var(--primary-color, #c2b098);
+  color: var(--primary-dark, #24211c);
+  box-shadow: 0 4px 14px rgba(194, 176, 152, 0.4);
+}
+
+.cp-btn-active:hover {
+  background: var(--primary-dark, #24211c);
+  border-color: var(--primary-dark, #24211c);
+  color: #fff;
+}
+
+.cp-btn-done {
+  background: rgba(76, 175, 138, 0.1);
+  border-color: rgba(76, 175, 138, 0.4);
+  color: #2e7d5e;
+}
+
+.cp-btn-done:hover {
+  background: #4caf8a;
+  border-color: #4caf8a;
+  color: #fff;
+}
+
+/* ── EMPTY STATE ────────────────────────────────────── */
+.cp-empty {
+  text-align: center;
+  padding: 5rem 1rem;
+  color: #c0b0a0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cp-empty-icon {
+  font-size: 3rem;
+  opacity: 0.35;
+}
+
+.cp-empty p {
+  font-family: 'Cairo', sans-serif;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* ── CARD ENTRANCE ANIMATION ────────────────────────── */
+@keyframes cp-fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.cp-card {
+  animation: cp-fadeUp 0.4s ease both;
+}
+
+.cp-card:nth-child(1)  { animation-delay: 0.04s; }
+.cp-card:nth-child(2)  { animation-delay: 0.08s; }
+.cp-card:nth-child(3)  { animation-delay: 0.12s; }
+.cp-card:nth-child(4)  { animation-delay: 0.16s; }
+.cp-card:nth-child(5)  { animation-delay: 0.20s; }
+.cp-card:nth-child(6)  { animation-delay: 0.24s; }
+.cp-card:nth-child(7)  { animation-delay: 0.28s; }
+.cp-card:nth-child(8)  { animation-delay: 0.32s; }
+.cp-card:nth-child(9)  { animation-delay: 0.36s; }
+
+/* ── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .cp-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .cp-hero { padding: 3rem 0 2.5rem; }
+  .cp-grid { grid-template-columns: 1fr; }
+  .cp-toolbar { flex-direction: column; align-items: flex-start; }
+  .cp-filters { gap: 0.4rem; }
+  .cp-filter-btn { padding: 0.4rem 0.9rem; font-size: 0.78rem; }
+}

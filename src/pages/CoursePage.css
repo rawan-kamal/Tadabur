@@ -1,0 +1,237 @@
+/* ══════════════════════════════════════════════════════
+   COURSE OVERVIEW PAGE — cov- prefix
+   ══════════════════════════════════════════════════════ */
+
+.cov-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #faf8f5;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ── HERO ───────────────────────────────────────────── */
+.cov-hero {
+  background: linear-gradient(
+    160deg,
+    var(--primary-color, #c2b098) 0%,
+    #c2b098 100%
+  );
+  padding: 5rem;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.cov-hero::before {
+  content: "";
+  position: absolute;
+  bottom: -60px; left: 50%;
+  transform: translateX(-50%);
+  width: 120%; height: 120px;
+  background: #faf8f5;
+  border-radius: 50% 50% 0 0;
+}
+
+.cov-hero::after {
+  content: "❋";
+  position: absolute;
+  top: 1.5rem; left: 2.5rem;
+  font-size: 4rem;
+  color: rgba(36, 33, 28, 0.06);
+  pointer-events: none;
+}
+
+.cov-hero-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.cov-hero-title {
+  font-family: 'Amiri', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: var(--primary-dark, #24211c);
+  margin: 0 0 0.6rem;
+  line-height: 1.3;
+}
+
+.cov-hero-sub {
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.95rem;
+  color: var(--primary-text-color, #564734);
+  opacity: 0.8;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.9;
+}
+
+/* ── BODY ───────────────────────────────────────────── */
+.cov-body {
+  flex: 1;
+  padding: 3rem 0 5rem;
+}
+
+.cov-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* ── COUNT ──────────────────────────────────────────── */
+.cov-count {
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.8rem;
+  color: #a09080;
+  margin: 0.4rem 0 0.8rem;
+}
+
+.cov-count strong {
+  color: var(--primary-dark, #24211c);
+  font-weight: 700;
+}
+
+/* ── LESSON LIST ────────────────────────────────────── */
+.cov-lessons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.cov-lesson {
+  background: #fff;
+  border-radius: 14px;
+  border: 1.5px solid rgba(194, 176, 152, 0.25);
+  padding: 0.9rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  animation: cov-fadeUp 0.35s ease both;
+}
+
+.cov-lesson:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(36, 33, 28, 0.08);
+  border-color: var(--primary-color, #c2b098);
+}
+
+.cov-lesson.cov-watched {
+  background: #f8fdf9;
+  border-color: rgba(76, 175, 138, 0.25);
+}
+
+.cov-lesson.cov-watched:hover { border-color: #4caf8a; }
+
+/* Stagger */
+@keyframes cov-fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.cov-lesson:nth-child(1)  { animation-delay: 0.02s; }
+.cov-lesson:nth-child(2)  { animation-delay: 0.04s; }
+.cov-lesson:nth-child(3)  { animation-delay: 0.06s; }
+.cov-lesson:nth-child(4)  { animation-delay: 0.08s; }
+.cov-lesson:nth-child(5)  { animation-delay: 0.10s; }
+.cov-lesson:nth-child(6)  { animation-delay: 0.12s; }
+.cov-lesson:nth-child(7)  { animation-delay: 0.14s; }
+.cov-lesson:nth-child(8)  { animation-delay: 0.16s; }
+.cov-lesson:nth-child(9)  { animation-delay: 0.18s; }
+.cov-lesson:nth-child(10) { animation-delay: 0.20s; }
+
+/* Number badge */
+.cov-lesson-num {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: rgba(194, 176, 152, 0.15);
+  border: 1.5px solid rgba(194, 176, 152, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--primary-text-color, #564734);
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.cov-lesson:hover .cov-lesson-num {
+  background: var(--primary-color, #c2b098);
+  border-color: var(--primary-color, #c2b098);
+  color: var(--primary-dark, #24211c);
+}
+
+.cov-num-done {
+  background: rgba(76, 175, 138, 0.12) !important;
+  border-color: rgba(76, 175, 138, 0.3) !important;
+  color: #2e7d5e !important;
+}
+
+.cov-lesson.cov-watched:hover .cov-num-done {
+  background: #4caf8a !important;
+  border-color: #4caf8a !important;
+  color: #fff !important;
+}
+
+/* Info */
+.cov-lesson-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cov-lesson-title {
+  font-family: 'Amiri', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary-dark, #24211c);
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cov-lesson-sub {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.7rem;
+  color: #b0a090;
+}
+
+.cov-surah-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(194, 176, 152, 0.12);
+  color: var(--primary-text-color, #564734);
+  padding: 0.1rem 0.5rem;
+  border-radius: 100px;
+  font-weight: 600;
+}
+
+/* Arrow */
+.cov-lesson-arrow {
+  font-size: 0.8rem;
+  color: #c0b0a0;
+  flex-shrink: 0;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.cov-lesson:hover .cov-lesson-arrow {
+  color: var(--primary-color, #c2b098);
+  transform: translateX(-3px);
+}
+
+.cov-lesson.cov-watched .cov-lesson-arrow { color: #4caf8a; }
+
+/* ── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width: 640px) {
+  .cov-hero { padding: 3rem 0 2.5rem; }
+}

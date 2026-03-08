@@ -1,0 +1,167 @@
+
+/* ── NAVBAR ─────────────────────────────────────────── */
+.h-navbar-outer {
+    position: relative;
+    z-index: 9999;
+    background-color: var(--primary-color);
+}
+.h-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  background: var(--primary-color);
+  
+}
+
+.h-logo {
+  font-family: 'Amiri', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.h-nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.h-nav-links a {
+  text-decoration: none;
+  color: var(--primary-dark);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.h-nav-links a:hover , .h-nav-links a.active{ color: var(--primary-dark); font-weight: 800; }
+
+.h-nav-auth { display: flex; align-items: center; gap: 0.8rem; }
+
+/* Avatar + Dropdown */
+.h-avatar-wrap {
+  position: relative;
+  cursor: pointer;
+}
+
+.h-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  /* object-fit: cover; */
+  border: 2.5px solid var(--primary-color);
+  display: block;
+  transition: all 0.2s;
+  box-shadow: 0 2px 10px rgba(194,176,152,0.4);
+}
+
+.h-avatar:hover {
+  border-color: var(--primary-50);
+  transform: scale(1.05);
+}
+
+.h-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  min-width: 220px;
+  background: #fff;
+  border-radius: 16px;
+  border: 1.5px solid var(--primary-50);
+  box-shadow: 0 12px 40px rgba(36,33,28,0.15);
+  padding: 0.8rem;
+  z-index: 10000 !important;
+  animation: dropIn 0.18s ease;
+  direction: rtl;
+  text-align: right;
+}
+
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.h-dropdown-user {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.4rem 0.5rem 0.6rem;
+}
+
+.h-dropdown-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary-50);
+  flex-shrink: 0;
+}
+
+.h-dropdown-name {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--primary-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+
+.h-dropdown-email {
+  font-size: 0.72rem;
+  color: #aaa;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+  direction: ltr;
+  text-align: right;
+}
+
+.h-dropdown-hr {
+  border: none;
+  border-top: 1px solid var(--primary-50);
+  margin: 0.3rem 0;
+}
+
+.h-dropdown-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.8rem;
+  border: none;
+  background: none;
+  font-family: 'Amiri', serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.15s;
+  text-align: right;
+}
+
+.h-dropdown-item:hover {
+  background: var(--secondary-color);
+  color: var(--primary-dark);
+}
+
+.h-dropdown-logout, .fa-right-from-bracket{
+  color: #c0392b !important;
+}
+
+.h-dropdown-logout:hover {
+  background: rgba(192,57,43,0.08);
+  color: #c0392b;
+}
