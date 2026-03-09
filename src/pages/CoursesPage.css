@@ -4,7 +4,7 @@
   flex-direction: column;
   background: #faf8f5;
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* ── HERO ───────────────────────────────────────────── */

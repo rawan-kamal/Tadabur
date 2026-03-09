@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
 import Sparkles from "../components/Sparkles"
@@ -8,6 +8,9 @@ export default function LoginPage() {
   const navigate = useNavigate()
   const location = useLocation()
   const { user, login } = useAuth()
+  // FIX: track in-progress login to prevent double-click opening two popups,
+  // which causes Firebase to cancel the first with auth/cancelled-popup-request
+  const [loggingIn, setLoggingIn] = useState(false)
 
   const from = location.state?.from?.pathname || "/courses"
 
@@ -16,11 +19,18 @@ export default function LoginPage() {
   }, [user])
 
   const handleLogin = async () => {
+    if (loggingIn) return   // already in progress — ignore extra clicks
+    setLoggingIn(true)
     try {
       await login()
     } catch (err) {
-      console.error("Login error:", err)
+      // Only log errors that aren't the harmless "another popup opened" race
+      if (err?.code !== "auth/cancelled-popup-request") {
+        console.error("Login error:", err)
+      }
+      setLoggingIn(false)   // re-enable only on real error
     }
+    // on success, useEffect above navigates away so no need to reset
   }
 
   return (
@@ -49,12 +59,22 @@ export default function LoginPage() {
 
         <div className="lg-divider" />
 
-        <button className="lg-google-btn" onClick={handleLogin}>
-          <img
-            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-            alt="Google"
-          />
-          تسجيل الدخول بحساب Google
+        {/* FIX: disabled + visual feedback while popup is open */}
+        <button
+          className={`lg-google-btn ${loggingIn ? "lg-google-btn--loading" : ""}`}
+          onClick={handleLogin}
+          disabled={loggingIn}
+        >
+          {loggingIn
+            ? <><i className="fa-solid fa-spinner fa-spin"></i> جارٍ التسجيل...</>
+            : <>
+                <img
+                  src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                  alt="Google"
+                />
+                تسجيل الدخول بحساب Google
+              </>
+          }
         </button>
 
         <div className="lg-features">

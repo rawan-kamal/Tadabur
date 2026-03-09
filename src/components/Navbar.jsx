@@ -67,11 +67,25 @@ export default function Navbar() {
             <div className="h-nav-auth">
               {user ? (
                 <div className="h-avatar-wrap" onClick={e => { e.stopPropagation(); setDropOpen(o => !o) }}>
-                  <img src={user.photoURL} alt={user.displayName} className="h-avatar" />
+                  {/* FIX: referrerPolicy="no-referrer" required for Google profile images */}
+                  <img
+                    src={user.photoURL}
+                    alt={user.displayName}
+                    className="h-avatar"
+                    referrerPolicy="no-referrer"
+                    onError={e => { e.target.style.display = "none" }}
+                  />
                   {dropOpen && (
                     <div className="h-dropdown" onClick={e => e.stopPropagation()}>
                       <div className="h-dropdown-user">
-                        <img src={user.photoURL} alt="" className="h-dropdown-avatar" />
+                        {/* FIX: referrerPolicy="no-referrer" required for Google profile images */}
+                        <img
+                          src={user.photoURL}
+                          alt=""
+                          className="h-dropdown-avatar"
+                          referrerPolicy="no-referrer"
+                          onError={e => { e.target.style.display = "none" }}
+                        />
                         <div>
                           <div className="h-dropdown-name">{user.displayName}</div>
                           <div className="h-dropdown-email">{user.email}</div>
@@ -122,7 +136,14 @@ export default function Navbar() {
 
         {user && (
           <div className="h-mobile-user" onClick={() => { navigate("/profile"); setMobileOpen(false) }}>
-            <img src={user.photoURL} alt="" className="h-mobile-user-avatar" />
+            {/* FIX: referrerPolicy="no-referrer" required for Google profile images */}
+            <img
+              src={user.photoURL}
+              alt=""
+              className="h-mobile-user-avatar"
+              referrerPolicy="no-referrer"
+              onError={e => { e.target.style.display = "none" }}
+            />
             <div>
               <div className="h-mobile-user-name">{user.displayName}</div>
               <div className="h-mobile-user-email">{user.email}</div>

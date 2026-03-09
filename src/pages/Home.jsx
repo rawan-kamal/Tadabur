@@ -59,7 +59,7 @@ export default function Home() {
                   ابدأ الان
                 </button>
                 <button className="h-btn-outline-main h-rounded-pill"
-                  onClick={() => navigate("/courses")}>
+                  onClick={() => document.getElementById("tracks")?.scrollIntoView({ behavior: "smooth" })}>
                   استكشف المسارات
                 </button>
               </div>

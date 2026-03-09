@@ -444,7 +444,11 @@ nav {
 }
 
 .h-btn-main:hover { background-color: var(--primary-50); color: var(--primary-dark); }
-.h-mushaf-text .h-btn-main:hover { background-color: var(--primary-color); color: var(--primary-dark); }
+.h-mushaf-text .h-btn-main {
+    box-shadow: none;
+}
+.h-mushaf-text .h-btn-main:hover { background-color: #cbbead; color: var(--primary-dark);   box-shadow: 0 6px 5px var(--primary-50);
+ }
 
 .h-btn-dark {
   background-color: var(--primary-dark);

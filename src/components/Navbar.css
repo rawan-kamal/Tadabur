@@ -1,8 +1,16 @@
 /* ── NAVBAR ─────────────────────────────────────────── */
 .h-navbar-outer {
-    position: relative;
-    z-index: 9999;
-    background-color: var(--primary-color);
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background-color: var(--primary-color);
+}
+/* ── SCROLL OFFSET FOR STICKY NAVBAR ── */
+#journey,
+#about,
+#tracks,
+#courses {
+  scroll-margin-top: 80px;
 }
 .h-navbar {
   display: flex;

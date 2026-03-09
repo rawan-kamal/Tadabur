@@ -30,6 +30,18 @@ function getAllLocalProgress() {
 }
 
 // ─────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────
+export function clearLocalProgress() {
+  const keysToRemove = []
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i)
+    if (isProgressKey(key)) keysToRemove.push(key)
+  }
+  keysToRemove.forEach(key => localStorage.removeItem(key))
+  console.log(`[Progress] Cleared ${keysToRemove.length} local progress keys`)
+}
+
+// ─────────────────────────────────────────────────────
 // WRITE progress map to localStorage
 // ─────────────────────────────────────────────────────
 function setLocalProgress(progressMap) {
@@ -46,7 +58,7 @@ function getUserDocRef(uid) {
 }
 
 // ─────────────────────────────────────────────────────
-// LOAD from Firestore + merge with localStorage
+// LOAD from Firestore — replaces localStorage with this user's cloud data
 // Called once on login
 // ─────────────────────────────────────────────────────
 export async function loadCloudProgress(uid) {
@@ -54,36 +66,22 @@ export async function loadCloudProgress(uid) {
     const ref = getUserDocRef(uid)
     const snap = await getDoc(ref)
 
-    const localProgress = getAllLocalProgress()
+    // FIX: wipe any leftover progress from a previous account before
+    // writing this user's data — prevents cross-account contamination
+    clearLocalProgress()
 
     if (snap.exists()) {
       const cloudProgress = snap.data().progress || {}
 
-      // Merge: cloud wins for existing keys, local adds new keys
-      const merged = { ...localProgress, ...cloudProgress }
+      // Write this user's cloud progress to localStorage
+      setLocalProgress(cloudProgress)
 
-      // Also add any local-only keys to the merged set
-      Object.keys(localProgress).forEach(key => {
-        if (!(key in merged)) {
-          merged[key] = localProgress[key]
-        }
-      })
-
-      // Write merged to localStorage
-      setLocalProgress(merged)
-
-      // Save merged back to cloud (includes any new local progress)
-      await setDoc(ref, { progress: merged }, { merge: true })
-
-      console.log(`[Progress] Synced ${Object.keys(merged).length} items from cloud`)
-      return merged
+      console.log(`[Progress] Synced ${Object.keys(cloudProgress).length} items from cloud`)
+      return cloudProgress
     } else {
-      // First time user — upload local progress to cloud
-      if (Object.keys(localProgress).length > 0) {
-        await setDoc(ref, { progress: localProgress }, { merge: true })
-        console.log(`[Progress] Uploaded ${Object.keys(localProgress).length} local items to cloud`)
-      }
-      return localProgress
+      // First time user — nothing in cloud yet, localStorage is already cleared
+      console.log("[Progress] New user, starting fresh")
+      return {}
     }
   } catch (err) {
     console.error("[Progress] Cloud sync failed, using local only:", err)
@@ -109,7 +107,6 @@ export async function saveProgress(uid, key, value) {
     }, { merge: true })
   } catch (err) {
     console.error("[Progress] Failed to save to cloud:", err)
-    // localStorage still has the data, so the user won't lose progress
   }
 }
 
@@ -117,12 +114,10 @@ export async function saveProgress(uid, key, value) {
 // SAVE multiple progress keys at once
 // ─────────────────────────────────────────────────────
 export async function saveProgressBatch(uid, updates) {
-  // Save all to localStorage
   Object.entries(updates).forEach(([key, value]) => {
     localStorage.setItem(key, value)
   })
 
-  // Sync to cloud
   if (!uid) return
 
   try {
