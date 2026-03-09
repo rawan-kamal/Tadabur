@@ -20,15 +20,26 @@ export default function Footer() {
             </div>
             <p className="h-footer-desc">منصة متكاملة لتدبر القرآن الكريم بسهولة ويسر.</p>
             <ul className="h-footer-links">
-              <li><a href="#" onClick={e => { e.preventDefault(); navigate("/") }}>من نحن</a></li>
-              <li><a href="#" onClick={e => e.preventDefault()}>عن التفسير</a></li>
+              <li><a href="#" onClick={e => { e.preventDefault(); navigate("/aboutus") }}>من نحن</a></li>
+              <li><a href="#" onClick={e => { e.preventDefault(); navigate("/about") }}>عن التفسير</a></li>
+              <li>
+              <a href="#" onClick={e => { e.preventDefault(); navigate("/privacy") }}>
+              سياسة الخصوصية
+              </a>
+              </li>
+
+              <li>
+              <a href="#" onClick={e => { e.preventDefault(); navigate("/terms") }}>
+              شروط الاستخدام
+              </a>
+              </li>
             </ul>
           </div>
           <div className="h-footer-col">
             <h5 className="h-footer-col-title">المنصة</h5>
             <ul className="h-footer-links">
               <li><a href="#" onClick={e => { e.preventDefault(); navigate("/courses") }}>جميع الدورات</a></li>
-              <li><a href="#" onClick={e => { e.preventDefault(); navigate("/mafateeh") }}>تعلم مفاتيح</a></li>
+              <li><a href="#" onClick={e => { e.preventDefault(); navigate("/mafateeh") }}>مفاتيح التدبر</a></li>
               <li><a href="#" onClick={e => { e.preventDefault(); navigate("/full-quran") }}>تدبر القرآن</a></li>
             </ul>
           </div>

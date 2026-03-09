@@ -1,0 +1,55 @@
+/* ══════════════════════════════════════════════════════
+   RESPONSIVE FIXES — imported after index.css
+   Patches global shared styles for mobile/tablet
+   ══════════════════════════════════════════════════════ */
+
+/* Fix h-container padding on very small screens */
+@media (max-width: 480px) {
+  .h-container,
+  .t-container {
+    padding: 0 1rem;
+  }
+}
+
+/* ── Shared Navbar responsive ───────────────────────── */
+@media (max-width: 900px) {
+  .t-nav-links {
+    display: none;
+  }
+}
+
+/* ── Shared Footer responsive ───────────────────────── */
+@media (max-width: 768px) {
+  .t-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .t-footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+  .t-footer {
+    padding: 2rem 0 1.2rem;
+  }
+}
+
+/* ── Fix global button overflow on small screens ────── */
+@media (max-width: 480px) {
+  .t-btn-main,
+  .t-btn-dark,
+  .t-btn-outline,
+  .h-btn-main,
+  .h-btn-dark,
+  .h-btn-outline-main {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* ── Fix section title decorative lines overflow ────── */
+@media (max-width: 360px) {
+  .t-sec-title h3::before,
+  .t-sec-title h3::after {
+    display: none;
+  }
+}

@@ -1,16 +1,16 @@
 // =============================================
 // TADABUR - COURSES DATA FILE
 // =============================================
-// TWO TYPES OF COURSES:
-//
-// Type 1: "single-playlist"
-//   → One YouTube playlist, each video = one lesson
-//   → Example: مفاتيح التدبر
-//
-// Type 2: "per-surah"
-//   → 114 surahs, each surah has its OWN playlist
-//   → Example: تدبّر القرآن كاملاً by Fadel Soliman
+// Now syncs progress to Firestore via progressService
 // =============================================
+
+import { auth } from "../lib/firebase"
+import { saveProgress, saveProgressBatch } from "../lib/progressService"
+
+// Helper: get current user's uid (or null)
+function getUid() {
+  return auth.currentUser?.uid || null
+}
 
 
 // ─────────────────────────────────────────────
@@ -24,7 +24,6 @@ export const INTRO_COURSE = {
   track: "mafateeh",
   type: "single-playlist",
   playlistId: "PLukAHj56HNKbD2R2ZroUhu7g-mK1S6CrW",
-  // Texts to strip from YouTube video titles for cleaner display
   titleCleanup: ["فاضل سليمان", "من دورة مفاتح التدبر", "|"],
 }
 
@@ -163,26 +162,33 @@ export const FULL_QURAN_COURSE = {
 
 
 // ─────────────────────────────────────────────
-// ALL COURSES LIST — add more here later
+// ALL COURSES LIST
 // ─────────────────────────────────────────────
 export const courses = [
   INTRO_COURSE,
   FULL_QURAN_COURSE,
-  // Add more single-playlist or per-surah courses here
 ]
 
 
 // =============================================
 // PROGRESS HELPERS
 // =============================================
+// Reads use localStorage (instant, synced on login)
+// Writes save to localStorage AND Firestore (via progressService)
+// =============================================
 
-// --- For single-playlist courses (e.g. مفاتيح التدبر) ---
+// --- For single-playlist courses ---
 export function isVideoWatched_Single(courseId, videoId) {
   return localStorage.getItem(`watch_${courseId}_${videoId}`) === "true"
 }
+
 export function markVideoWatched_Single(courseId, videoId) {
-  localStorage.setItem(`watch_${courseId}_${videoId}`, "true")
+  const key = `watch_${courseId}_${videoId}`
+  localStorage.setItem(key, "true")
+  // Fire-and-forget cloud sync
+  saveProgress(getUid(), key, "true")
 }
+
 export function getSingleCourseProgress(courseId, allVideoIds) {
   const watched = allVideoIds.filter(id => isVideoWatched_Single(courseId, id)).length
   return {
@@ -192,19 +198,27 @@ export function getSingleCourseProgress(courseId, allVideoIds) {
   }
 }
 
-// --- For per-surah courses (e.g. تدبّر القرآن كاملاً) ---
+// --- For per-surah courses ---
 export function isEpisodeWatched(courseId, surahNumber, episodeIndex) {
   return localStorage.getItem(`watch_${courseId}_${surahNumber}_${episodeIndex}`) === "true"
 }
+
 export function markEpisodeWatched(courseId, surahNumber, episodeIndex) {
-  localStorage.setItem(`watch_${courseId}_${surahNumber}_${episodeIndex}`, "true")
+  const key = `watch_${courseId}_${surahNumber}_${episodeIndex}`
+  localStorage.setItem(key, "true")
+  saveProgress(getUid(), key, "true")
 }
+
 export function isSurahDone(courseId, surahNumber) {
   return localStorage.getItem(`surahDone_${courseId}_${surahNumber}`) === "true"
 }
+
 export function markSurahDone(courseId, surahNumber) {
-  localStorage.setItem(`surahDone_${courseId}_${surahNumber}`, "true")
+  const key = `surahDone_${courseId}_${surahNumber}`
+  localStorage.setItem(key, "true")
+  saveProgress(getUid(), key, "true")
 }
+
 export function getSurahProgress(courseId, surahNumber, videoCount) {
   let watched = 0
   for (let i = 1; i <= videoCount; i++) {
@@ -216,6 +230,7 @@ export function getSurahProgress(courseId, surahNumber, videoCount) {
     percent: videoCount > 0 ? Math.round((watched / videoCount) * 100) : 0
   }
 }
+
 export function getFullQuranProgress(courseId, surahs) {
   const done = surahs.filter(s => isSurahDone(courseId, s.number)).length
   return {

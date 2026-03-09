@@ -77,3 +77,18 @@
 
 .h-footer-bottom p { margin: 0; }
 .h-footer-bottom strong { color: rgba(255,255,255,0.6); }
+
+/* ── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .h-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .h-footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+  .h-footer {
+    padding: 2rem 0 1.2rem;
+  }
+}

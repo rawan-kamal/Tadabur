@@ -1,0 +1,235 @@
+/* ══════════════════════════════════════════════════════
+   LOGIN PAGE — lg- prefix
+   ══════════════════════════════════════════════════════ */
+
+.lg-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    160deg,
+    #faf8f5 0%,
+    #f0ebe5 40%,
+    rgba(194, 176, 152, 0.15) 100%
+  );
+  position: relative;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+/* Decorative background circles */
+.lg-page::before {
+  content: "";
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(194, 176, 152, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.lg-page::after {
+  content: "";
+  position: absolute;
+  bottom: -150px;
+  left: -150px;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(194, 176, 152, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── CARD ───────────────────────────────────────────── */
+.lg-card {
+  position: relative;
+  background: #fff;
+  border-radius: 28px;
+  border: 1.5px solid rgba(194, 176, 152, 0.2);
+  padding: 3rem 2.5rem;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  box-shadow: 0 24px 64px rgba(36, 33, 28, 0.08), 0 0 0 1px rgba(194, 176, 152, 0.05);
+  z-index: 1;
+  animation: lgCardIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes lgCardIn {
+  from {
+    transform: translateY(20px) scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* ── LOGO ───────────────────────────────────────────── */
+.lg-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.lg-logo-wrap img {
+  width: 52px;
+  height: 52px;
+}
+
+.lg-logo-text {
+  font-family: 'Amiri', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+/* ── CONTENT ────────────────────────────────────────── */
+.lg-title {
+  font-family: var(--font-main);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.lg-desc {
+  font-size: 0.92rem;
+  color: var(--primary-text-color);
+  line-height: 1.8;
+  margin: 0;
+  opacity: 0.8;
+}
+
+/* ── DIVIDER ────────────────────────────────────────── */
+.lg-divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to left, var(--primary-color), #d4c4ae);
+  border-radius: 100px;
+  margin: 0.3rem 0;
+}
+
+/* ── GOOGLE BUTTON ──────────────────────────────────── */
+.lg-google-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 100px;
+  border: 1.5px solid rgba(194, 176, 152, 0.3);
+  background: #fff;
+  color: var(--primary-dark);
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s;
+  box-shadow: 0 4px 16px rgba(194, 176, 152, 0.15);
+}
+
+.lg-google-btn:hover {
+  border-color: var(--primary-color);
+  background: var(--primary-dark);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(36, 33, 28, 0.15);
+}
+
+.lg-google-btn img {
+  width: 22px;
+  height: 22px;
+}
+
+/* ── FEATURES ───────────────────────────────────────── */
+.lg-features {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.lg-feature {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  color: #a09080;
+}
+
+.lg-feature i {
+  color: var(--primary-color);
+  font-size: 0.7rem;
+}
+
+/* ── FOOTER ─────────────────────────────────────────── */
+.lg-footer {
+  font-size: 0.72rem;
+  color: #c0b0a0;
+  margin-top: 0.3rem;
+}
+
+.lg-footer a {
+  color: var(--primary-dark);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.lg-footer a:hover {
+  color: var(--primary-color);
+}
+
+/* ── BACK BUTTON ────────────────────────────────────── */
+.lg-back-btn {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(194, 176, 152, 0.1);
+  border: 1px solid rgba(194, 176, 152, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  color: var(--primary-dark);
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  z-index: 2;
+}
+
+.lg-back-btn:hover {
+  background: rgba(194, 176, 152, 0.2);
+  border-color: var(--primary-color);
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width: 480px) {
+  .lg-card {
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+  }
+  .lg-title {
+    font-size: 1.3rem;
+  }
+  .lg-back-btn {
+    top: 1rem;
+    right: 1rem;
+  }
+}

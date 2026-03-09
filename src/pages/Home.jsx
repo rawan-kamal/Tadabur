@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom"
 import { PLAYLIST_COURSES, INTRO_COURSE, FULL_QURAN_COURSE } from "../data/courses"
-import { useEffect, useRef } from "react"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 import Sparkles from "../components/Sparkles"
 import "./Home.css"
+import "../responsive-fixes.css"
 
 
 const WHY_CARDS = [
@@ -37,16 +37,8 @@ const JOURNEY_CARDS = [
   }
 ]
 
-const FEATURED_COURSES = [
-  INTRO_COURSE,
-  FULL_QURAN_COURSE,
-  ...PLAYLIST_COURSES.slice(0, 1),
-]
-
 export default function Home() {
   const navigate = useNavigate()
-
-  
 
   return (
     <div className="home-page">
@@ -107,8 +99,10 @@ export default function Home() {
                   <div className="h-card-icon">
                     <i className={`fa-solid ${c.icon} h-icon-lg`}></i>
                   </div>
-                  <h5 className="h-card-title">{c.title}</h5>
-                  <p className="h-card-text">{c.desc}</p>
+                  <div>
+                    <h5 className="h-card-title">{c.title}</h5>
+                    <p className="h-card-text">{c.desc}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -172,7 +166,7 @@ export default function Home() {
         <div className="h-sec-title">
           <h3><span className="h-fs-40">مساراتنا</span></h3>
         </div>
-        <div className="h-tracks-grid" id="courses" style={{ gap: "1.5rem" }}>
+        <div className="h-tracks-grid" id="courses">
           <div className="h-track-card h-track-card-img1 h-rounded-left" >
             <div className="overlay h-rounded-left">
                <h2 className="h-track-title">تعلم مفاتيح التدبر</h2>
@@ -180,23 +174,21 @@ export default function Home() {
                     ابدأ رحلتك من الأساسيات عبر منهج مبسّط يعرّفك على أهم مفاتيح التدبّر، وكيفية فهم المعاني
                     وربط الآيات بسياقها، لتتمكن من التدبّر الصحيح في أي سورة.
                 </p>
-                <button className="h-track-arrow-btn ">
-                    <i className="bi bi-arrow-up-left-circle-fill h-arrow-icon" onClick={() => navigate("/mafateeh")}></i>
+                <button className="h-track-arrow-btn" onClick={() => navigate("/mafateeh")}>
+                    <i className="bi bi-arrow-up-left-circle-fill h-arrow-icon"></i>
             </button> 
             </div>
-            
           </div>
 
           <div className="h-track-card h-track-card-img2 h-rounded-middle" >
             <div className="overlay h-rounded-middle">
-
             <h2 className="h-track-title">تدبر القران كاملا</h2>
             <p className="h-track-desc">
               انطلق في رحلة شاملة تغطي القرآن الكريم كاملاً من خلال دورات متكاملة يقدمها شيوخ متخصصون،
               مصمّمة لتمنحك فهماً تدريجياً وواضحاً للمعاني.
             </p>
-            <button className="h-track-arrow-btn">
-              <i className="bi bi-arrow-up-left-circle-fill h-arrow-icon" onClick={() => navigate("/full-quran")}></i>
+            <button className="h-track-arrow-btn" onClick={() => navigate("/full-quran")}>
+              <i className="bi bi-arrow-up-left-circle-fill h-arrow-icon"></i>
             </button>
             </div>      
           </div>
@@ -208,14 +200,13 @@ export default function Home() {
               دوراتنا مختارة بعناية لمساعدتك على بناء علاقة أعمق مع القرآن، خطوة بخطوة.
               استكشف مجموعة متنوعة من الدورات التخصصية التي تغطي مواضيع قرآنية مختلفة.
             </p>
-            <button className="h-track-arrow-btn">
-              <i className="bi bi-arrow-up-left-circle-fill h-arrow-icon" onClick={() => navigate("/courses")}></i>
+            <button className="h-track-arrow-btn" onClick={() => navigate("/courses")}>
+              <i className="bi bi-arrow-up-left-circle-fill h-arrow-icon"></i>
             </button>
             </div>  
           </div>
         </div>
       </div>
-      
 
       {/* ── BEST COURSES ───────────────────────── */}
       <section className="h-best-section">
@@ -276,8 +267,6 @@ export default function Home() {
       </section>
 
       <Footer />
-
-
     </div>
   )
 }
