@@ -11,6 +11,80 @@
   overflow-x: clip;
 }
 
+/* ══════════════════════════════════════════════════════
+   BREADCRUMB BAR
+   ══════════════════════════════════════════════════════ */
+.cov-bc-bar {
+  background: #faf8f5;
+  border-bottom: 1.5px solid rgba(194, 176, 152, 0.15);
+  position: relative;
+  z-index: 10;
+}
+
+.cov-bc-trail {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.75rem 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.cov-bc-trail::-webkit-scrollbar { display: none; }
+
+.cov-bc-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-main);
+  font-size: 0.88rem;
+  color: #8a7a6a;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem 0.75rem;
+  border-radius: 10px;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cov-bc-item:hover {
+  color: var(--primary-dark);
+  background: rgba(194, 176, 152, 0.1);
+}
+
+.cov-bc-item i {
+  font-size: 0.72rem;
+  opacity: 0.7;
+}
+
+.cov-bc-sep {
+  color: rgba(194, 176, 152, 0.4);
+  font-size: 0.55rem;
+  flex-shrink: 0;
+}
+
+.cov-bc-active {
+  color: var(--primary-dark) !important;
+  background: rgba(194, 176, 152, 0.12) !important;
+  font-weight: 700;
+  cursor: default;
+  border: 1px solid rgba(194, 176, 152, 0.2);
+  max-width: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cov-bc-active:hover {
+  background: rgba(194, 176, 152, 0.12) !important;
+}
+
+.cov-bc-active i {
+  color: var(--primary-color);
+  opacity: 1;
+}
+
 /* ── HERO ───────────────────────────────────────────── */
 .cov-hero {
   background: linear-gradient(
@@ -59,12 +133,12 @@
 
 .cov-hero-sub {
   font-family: 'Cairo', sans-serif;
-  font-size: 0.95rem;
-  color: var(--primary-text-color, #564734);
-  opacity: 0.8;
-  max-width: 520px;
-  margin: 0 auto;
-  line-height: 1.9;
+  font-size: 1rem;
+  color: var(--primary-dark, #24211c);
+  margin: 1.5rem auto 2rem;
+  max-width: 600px;
+  margin-inline: auto;
+  line-height: 1.8;
 }
 
 /* ── BODY ───────────────────────────────────────────── */
@@ -125,7 +199,6 @@
 
 .cov-lesson.cov-watched:hover { border-color: #4caf8a; }
 
-/* Stagger */
 @keyframes cov-fadeUp {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -234,4 +307,17 @@
 /* ── RESPONSIVE ─────────────────────────────────────── */
 @media (max-width: 640px) {
   .cov-hero { padding: 3rem 0 2.5rem; }
+
+  .cov-bc-trail {
+    padding: 0.6rem 0;
+  }
+
+  .cov-bc-item {
+    font-size: 0.82rem;
+    padding: 0.3rem 0.55rem;
+  }
+
+  .cov-bc-active {
+    max-width: 200px;
+  }
 }

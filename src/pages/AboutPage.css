@@ -57,7 +57,8 @@
   font-size: clamp(2.2rem, 5vw, 3.4rem);
   font-weight: 700;
   color: var(--primary-dark, #24211c);
-  margin: 0 0 0.6rem;
+  margin: 1.5rem auto 2rem;
+  max-width: 600px;
   line-height: 1.2;
   letter-spacing: 0.01em;
 }
@@ -331,4 +332,5 @@
   .ab-intro-text    { font-size: 0.95rem; padding: 1.2rem 1rem; }
   .ab-main-verse    { padding: 1.8rem 1.2rem; }
   .ab-effect-card   { flex-direction: column; gap: 0.8rem; }
+  .ab-hero-title    { font-size: 2rem; margin: 3rem auto; max-width: 600px; line-height: 1.8; }
 }
