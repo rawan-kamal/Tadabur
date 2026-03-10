@@ -849,7 +849,7 @@ background: radial-gradient(circle, rgba(26, 21, 15, 0.9) 0%, rgba(15, 23, 26, 0
   }
 
   .h-card-icon {
-    margin-bottom: 0;
+    margin-bottom: 1rem;
     flex-shrink: 0;
   }
 

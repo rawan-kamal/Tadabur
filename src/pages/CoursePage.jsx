@@ -6,6 +6,7 @@ import {
   PLAYLIST_COURSES,
   isVideoWatched_Single,
   getSingleCourseProgress,
+  initializeCourseVideos
 } from "../data/courses"
 import { extractSurahFromTitle } from "../lib/surahMap"
 import Navbar from "../components/Navbar"
@@ -25,7 +26,6 @@ export default function CoursePage() {
   const { courseId } = useParams()
   const navigate = useNavigate()
 
-  // Works for both /mafateeh and /course/:courseId
   const course = courseId ? PLAYLIST_COURSES.find(c => c.id === courseId) : INTRO_COURSE
   const basePath = courseId ? `course/${courseId}` : "mafateeh"
 
@@ -35,6 +35,7 @@ export default function CoursePage() {
 
   useEffect(() => {
     if (!course) { navigate("/"); return }
+    initializeCourseVideos(course.id, videos.map(v => v.videoId))  
     if (videos.length === 0) return
     setProgress(getSingleCourseProgress(course.id, videos.map(v => v.videoId)))
   }, [videos, course])
@@ -65,6 +66,28 @@ export default function CoursePage() {
             <p className="cov-hero-sub">
               {course.description || "دورة متخصصة في التفسير والتدبر القرآني"}
             </p>
+          </div>
+        </div>
+      </div>
+
+          {/* ── BREADCRUMB ── */}
+      <div className="cov-bc-bar">
+        <div className="t-container">
+          <div className="cov-bc-trail">
+            <button className="cov-bc-item" onClick={() => navigate("/")}>
+              <i className="fa-solid fa-house"></i>
+              <span>الرئيسية</span>
+            </button>
+            <i className="fa-solid fa-chevron-left cov-bc-sep"></i>
+            <button className="cov-bc-item" onClick={() => navigate("/courses")}>
+              <i className="fa-solid fa-graduation-cap"></i>
+              <span>الدورات</span>
+            </button>
+            <i className="fa-solid fa-chevron-left cov-bc-sep"></i>
+            <div className="cov-bc-item cov-bc-active">
+              <i className="fa-solid fa-book-open"></i>
+              <span>{course.title}</span>
+            </div>
           </div>
         </div>
       </div>

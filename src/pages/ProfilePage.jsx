@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
+import { deleteUserAccount } from "../lib/progressService"
 import {
   PLAYLIST_COURSES,
   INTRO_COURSE,
@@ -66,6 +67,9 @@ export default function ProfilePage() {
   const navigate = useNavigate()
   const { user, logout } = useAuth()
   const [stats, setStats] = useState(null)
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
+  const [deleteLoading, setDeleteLoading] = useState(false)
+  const [deleteError, setDeleteError] = useState("")
 
   useEffect(() => {
     setStats(getOverallStats())
@@ -122,6 +126,25 @@ export default function ProfilePage() {
       color: "green",
     },
   ]
+
+  const handleDeleteAccount = async () => {
+    setDeleteLoading(true)
+    setDeleteError("")
+
+    try {
+      await deleteUserAccount(user.uid)
+      // Account deleted successfully - navigate to home
+      navigate("/")
+    } catch (err) {
+      console.error("Delete account error:", err)
+      setDeleteError(
+        err.code === "auth/requires-recent-login"
+          ? "يرجى تسجيل الدخول مرة أخرى قبل حذف حسابك"
+          : "حدث خطأ أثناء حذف الحساب. يرجى المحاولة لاحقاً"
+      )
+      setDeleteLoading(false)
+    }
+  }
 
   return (
     <div className="pr-page">
@@ -344,15 +367,83 @@ export default function ProfilePage() {
 
           </div>
 
-          {/* LOGOUT */}
-          <div className="pr-logout-wrap">
+          {/* ACCOUNT ACTIONS */}
+          <div className="pr-account-actions">
             <button className="pr-logout-btn" onClick={() => { logout(); navigate("/") }}>
               <i className="fa-solid fa-right-from-bracket"></i>
               تسجيل الخروج
             </button>
+            <button className="pr-delete-btn" onClick={() => setShowDeleteDialog(true)}>
+              <i className="fa-solid fa-trash-can"></i>
+              حذف الحساب
+            </button>
           </div>
         </div>
       </div>
+
+      {/* DELETE CONFIRMATION DIALOG */}
+      {showDeleteDialog && (
+        <>
+          <div className="pr-dialog-overlay" onClick={() => !deleteLoading && setShowDeleteDialog(false)} />
+          <div className="pr-dialog">
+            <div className="pr-dialog-header">
+              <div className="pr-dialog-icon pr-dialog-icon-danger">
+                <i className="fa-solid fa-triangle-exclamation"></i>
+              </div>
+              <h3 className="pr-dialog-title">تأكيد حذف الحساب</h3>
+            </div>
+            <div className="pr-dialog-body">
+              <p className="pr-dialog-text">
+                هل أنت متأكد من حذف حسابك؟ <strong>لا يمكن التراجع عن هذا الإجراء.</strong>
+              </p>
+              <div className="pr-dialog-warning">
+                <i className="fa-solid fa-circle-exclamation"></i>
+                <div>
+                  <div className="pr-dialog-warning-title">سيتم حذف:</div>
+                  <ul className="pr-dialog-warning-list">
+                    <li>جميع بياناتك الشخصية</li>
+                    <li>تقدمك في جميع الدورات ({stats.totalWatched} درس)</li>
+                    <li>إنجازاتك ونقاطك</li>
+                    <li>حسابك من Firebase Auth</li>
+                  </ul>
+                </div>
+              </div>
+              {deleteError && (
+                <div className="pr-dialog-error">
+                  <i className="fa-solid fa-circle-xmark"></i>
+                  {deleteError}
+                </div>
+              )}
+            </div>
+            <div className="pr-dialog-footer">
+              <button
+                className="pr-dialog-btn pr-dialog-btn-cancel"
+                onClick={() => setShowDeleteDialog(false)}
+                disabled={deleteLoading}
+              >
+                إلغاء
+              </button>
+              <button
+                className="pr-dialog-btn pr-dialog-btn-danger"
+                onClick={handleDeleteAccount}
+                disabled={deleteLoading}
+              >
+                {deleteLoading ? (
+                  <>
+                    <i className="fa-solid fa-spinner fa-spin"></i>
+                    جاري الحذف...
+                  </>
+                ) : (
+                  <>
+                    <i className="fa-solid fa-trash-can"></i>
+                    نعم، احذف حسابي
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </>
+      )}
 
       <Footer />
     </div>

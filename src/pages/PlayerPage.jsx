@@ -47,6 +47,7 @@ export default function PlayerPage() {
 
   const refreshProgress = useCallback(() => {
     if (!course || videos.length === 0) return
+    initializeCourseVideos(course.id, videos.map(v => v.videoId))  
     setProgress(getSingleCourseProgress(course.id, videos.map(v => v.videoId)))
   }, [videos, course])
 
