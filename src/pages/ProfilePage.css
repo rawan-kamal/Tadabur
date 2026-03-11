@@ -285,11 +285,372 @@
   font-weight: 700;
   color: var(--primary-dark);
   margin: 0 0 0.3rem;
-  white-space: nowrap;
+  line-height: 1.4; 
+  display: -webkit-box; 
+  -webkit-line-clamp: 2; 
+  -webkit-box-orient: vertical; 
   overflow: hidden;
   text-overflow: ellipsis;
 }
+/* ── LOADING STATE ──────────────────────────────────── */
+.pr-loading {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: var(--primary-color);
+}
 
+.pr-loading i {
+  font-size: 3rem;
+  color: var(--primary-color);
+}
+
+.pr-loading p {
+  font-family: 'Cairo', sans-serif;
+  font-size: 1rem;
+  color: #8a7a6a;
+  margin: 0;
+}
+
+/* ── FIX COURSE NAME WIDTH ──────────────────────────── */
+.pr-course-name {
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin: 0 0 0.3rem;
+  line-height: 1.4;
+  /* Allow wrapping instead of truncating */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* ── ENHANCED RESPONSIVE ────────────────────────────── */
+@media (max-width: 900px) {
+  .pr-stats-bar {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .pr-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .pr-achievements-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .pr-actions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  /* Hero */
+  .pr-hero {
+    padding: 2rem 0 3.5rem;
+  }
+  
+  .pr-hero-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.2rem;
+  }
+  
+  .pr-hero-email {
+    text-align: center;
+  }
+  
+  .pr-avatar {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .pr-avatar-badge {
+    width: 26px;
+    height: 26px;
+    font-size: 0.65rem;
+  }
+  
+  .pr-hero-name {
+    font-size: 1.5rem;
+  }
+  
+  /* Stats Bar */
+  .pr-stats-bar {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+    margin-top: -2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .pr-stat-card {
+    padding: 1rem 0.8rem;
+  }
+  
+  .pr-stat-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+  }
+  
+  .pr-stat-num {
+    font-size: 1.4rem;
+  }
+  
+  .pr-stat-label {
+    font-size: 0.68rem;
+  }
+  
+  /* Body */
+  .pr-body {
+    padding: 0 0 3rem;
+  }
+  
+  /* Section Cards */
+  .pr-section-header {
+    padding: 1rem 1.2rem;
+  }
+  
+  .pr-section-title {
+    font-size: 1rem;
+  }
+  
+  .pr-section-title i {
+    font-size: 0.85rem;
+  }
+  
+  .pr-section-body {
+    padding: 1.2rem;
+  }
+  
+  /* Course List */
+  .pr-course-item {
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    padding: 0.9rem 1rem;
+  }
+  
+  .pr-course-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  .pr-course-info {
+    flex: 1 1 calc(100% - 52px);
+    min-width: 0;
+  }
+  
+  .pr-course-name {
+    font-size: 0.88rem;
+  }
+  
+  .pr-course-meta {
+    font-size: 0.7rem;
+    flex-wrap: wrap;
+  }
+  
+  .pr-course-bar {
+    order: 4;
+    width: 100%;
+    margin-top: 0.2rem;
+  }
+  
+  .pr-course-percent {
+    order: 3;
+    font-size: 0.75rem;
+    min-width: auto;
+  }
+  
+  .pr-course-arrow {
+    order: 5;
+    font-size: 0.75rem;
+  }
+  
+  /* Achievements */
+  .pr-achievements-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+  }
+  
+  .pr-achievement {
+    padding: 1rem 0.6rem;
+  }
+  
+  .pr-achievement-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
+  }
+  
+  .pr-achievement-name {
+    font-size: 0.78rem;
+  }
+  
+  .pr-achievement-desc {
+    font-size: 0.65rem;
+  }
+  
+  /* Quick Actions */
+  .pr-actions-grid {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+  
+  .pr-action-btn {
+    padding: 0.9rem 1rem;
+  }
+  
+  .pr-action-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+  
+  .pr-action-title {
+    font-size: 0.85rem;
+  }
+  
+  .pr-action-desc {
+    font-size: 0.68rem;
+  }
+  
+  /* Account Actions */
+  .pr-account-actions {
+    flex-direction: column;
+    margin-top: 2rem;
+    padding: 1.5rem 0;
+    gap: 0.8rem;
+  }
+  
+  .pr-logout-btn,
+  .pr-delete-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.7rem 1.5rem;
+    font-size: 0.85rem;
+  }
+  
+  /* Empty State */
+  .pr-empty {
+    padding: 2.5rem 1rem;
+  }
+  
+  .pr-empty i {
+    font-size: 2rem;
+  }
+  
+  .pr-empty p {
+    font-size: 0.85rem;
+  }
+  
+  .pr-empty-btn {
+    font-size: 0.82rem;
+    padding: 0.6rem 1.3rem;
+  }
+  
+  /* Dialog */
+  .pr-dialog {
+    width: 95%;
+    max-width: 95%;
+  }
+  
+  .pr-dialog-header {
+    padding: 1.5rem 1.5rem 1rem;
+  }
+  
+  .pr-dialog-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 1.5rem;
+  }
+  
+  .pr-dialog-title {
+    font-size: 1.3rem;
+  }
+  
+  .pr-dialog-body {
+    padding: 0 1.5rem 1.5rem;
+  }
+  
+  .pr-dialog-text {
+    font-size: 0.88rem;
+  }
+  
+  .pr-dialog-warning {
+    padding: 1rem;
+    gap: 0.8rem;
+  }
+  
+  .pr-dialog-warning > i {
+    font-size: 1.1rem;
+  }
+  
+  .pr-dialog-warning-title {
+    font-size: 0.85rem;
+  }
+  
+  .pr-dialog-warning-list {
+    font-size: 0.8rem;
+  }
+  
+  .pr-dialog-footer {
+    padding: 1.2rem 1.5rem 1.5rem;
+    flex-direction: column-reverse;
+  }
+  
+  .pr-dialog-btn {
+    width: 100%;
+    font-size: 0.85rem;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 375px) {
+  .pr-hero {
+    padding: 1.5rem 0 3rem;
+  }
+  
+  .pr-stats-bar {
+    gap: 0.6rem;
+  }
+  
+  .pr-stat-card {
+    padding: 0.9rem 0.6rem;
+  }
+  
+  .pr-stat-num {
+    font-size: 1.2rem;
+  }
+  
+  .pr-stat-label {
+    font-size: 0.65rem;
+  }
+  
+  .pr-section-body {
+    padding: 1rem;
+  }
+  
+  .pr-course-item {
+    padding: 0.8rem 0.9rem;
+  }
+  
+  .pr-achievement {
+    padding: 0.9rem 0.5rem;
+  }
+  
+  .pr-achievement-name {
+    font-size: 0.75rem;
+  }
+  
+  .pr-achievement-desc {
+    font-size: 0.62rem;
+  }
+}
 .pr-course-meta {
   font-size: 0.72rem;
   color: #a09080;
