@@ -178,7 +178,6 @@ export default function AboutPage() {
 
           {/* Main verse */}
           <div className="ab-main-verse">
-            <i className="fa-solid fa-star-and-crescent ab-main-verse-icon"></i>
             <p className="ab-main-verse-text">
               ﴿الَّذِينَ آمَنُوا وَتَطْمَئِنُّ قُلُوبُهُم بِذِكْرِ اللَّهِ ۗ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾
             </p>

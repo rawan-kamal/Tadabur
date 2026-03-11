@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { FULL_QURAN_COURSE, isSurahDone, getFullQuranProgress } from "../data/courses"
+import { FULL_QURAN_COURSE, isSurahDone, getFullQuranProgress, getSurahProgress } from "../data/courses"
 import "./FullQuranPage.css"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
+import CertificateModal from "../components/CertificateModal"
 
 const COURSE_ID = FULL_QURAN_COURSE.id
 const SURAHS    = FULL_QURAN_COURSE.surahs
@@ -14,13 +15,25 @@ export default function FullQuranPage() {
   const [progress, setProgress]   = useState({ doneSurahs: 0, totalSurahs: 114, percent: 0 })
   const [search, setSearch]       = useState("")
   const [surahsDone, setSurahsDone] = useState({})
+  const [surahProgress, setSurahProgress] = useState({}) // NEW: Track progress for each surah
+  const [showCertificate, setShowCertificate] = useState(false)
 
   useEffect(() => {
     const p = getFullQuranProgress(COURSE_ID, SURAHS)
     setProgress(p)
+    
     const done = {}
-    SURAHS.forEach(s => { done[s.number] = isSurahDone(COURSE_ID, s.number) })
+    const progressMap = {} // NEW
+    
+    SURAHS.forEach(s => {
+      done[s.number] = isSurahDone(COURSE_ID, s.number)
+      // NEW: Calculate progress for each surah
+      const surahProg = getSurahProgress(COURSE_ID, s.number, s.videoCount)
+      progressMap[s.number] = surahProg.percent
+    })
+    
     setSurahsDone(done)
+    setSurahProgress(progressMap) // NEW
   }, [])
 
   const filtered = SURAHS.filter(s => s.name.includes(search))
@@ -90,6 +103,17 @@ export default function FullQuranPage() {
                   {progress.percent > 0 && progress.percent < 100 && <><i className="fa-solid fa-rotate-right"></i> تابع من حيث توقفت</>}
                   {progress.percent === 100 && <><i className="fa-solid fa-circle-check"></i> أتممت القرآن كاملاً</>}
                 </button>
+
+                {/* Certificate Button */}
+                {progress.percent === 100 && (
+                  <button 
+                    className="fq-certificate-btn"
+                    onClick={() => setShowCertificate(true)}
+                  >
+                    <i className="fa-solid fa-award"></i>
+                    احصل على شهادتك
+                  </button>
+                )}
               </div>
 
               {/* Info Card */}
@@ -136,6 +160,8 @@ export default function FullQuranPage() {
               <div className="fq-surah-grid">
                 {filtered.map(surah => {
                   const done = surahsDone[surah.number]
+                  const percent = surahProgress[surah.number] || 0 // NEW: Get actual progress
+                  
                   return (
                     <div
                       key={surah.number}
@@ -151,7 +177,7 @@ export default function FullQuranPage() {
                           <i className="fa-solid fa-video"></i> {surah.videoCount} فيديو
                         </div>
                         <div className="fq-mini-bar">
-                          <div className="fq-mini-fill" style={{ width: done ? "100%" : "0%" }} />
+                          <div className="fq-mini-fill" style={{ width: `${percent}%` }} />
                         </div>
                       </div>
                       <div className="fq-surah-arrow">
@@ -168,6 +194,12 @@ export default function FullQuranPage() {
       </div>
 
       <Footer />
+
+      {/* Certificate Modal */}
+      <CertificateModal 
+        isOpen={showCertificate} 
+        onClose={() => setShowCertificate(false)} 
+      />
     </div>
   )
 }

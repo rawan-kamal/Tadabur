@@ -1,0 +1,155 @@
+/* ══════════════════════════════════════════════════════
+   VIDEO FILTER NOTICE — Optional UI Element
+   ══════════════════════════════════════════════════════ */
+
+/* Shows when videos have been filtered from the playlist */
+.sc-filter-notice {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  margin-top: 1rem;
+  background: rgba(76, 175, 138, 0.08);
+  border: 1px solid rgba(76, 175, 138, 0.2);
+  border-radius: 10px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.78rem;
+  color: #2e7d5e;
+  line-height: 1.5;
+}
+
+.sc-filter-notice i {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* Alternative warning-style notice */
+.sc-filter-notice-warning {
+  background: rgba(255, 193, 7, 0.08);
+  border-color: rgba(255, 193, 7, 0.25);
+  color: #9a7300;
+}
+
+/* Dismissible notice variant */
+.sc-filter-notice-dismissible {
+  position: relative;
+  padding-right: 2.5rem;
+}
+
+.sc-filter-notice-close {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: inherit;
+  opacity: 0.5;
+  cursor: pointer;
+  padding: 0.3rem;
+  font-size: 0.9rem;
+  transition: opacity 0.2s;
+}
+
+.sc-filter-notice-close:hover {
+  opacity: 1;
+}
+
+/* Compact inline variant */
+.sc-filter-notice-inline {
+  display: inline-flex;
+  padding: 0.4rem 0.8rem;
+  margin: 0;
+  font-size: 0.72rem;
+  border-radius: 100px;
+}
+
+/* Animation for notice appearance */
+@keyframes filterNoticeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sc-filter-notice {
+  animation: filterNoticeSlideIn 0.3s ease;
+}
+
+/* Debug panel variant (for development) */
+.sc-filter-debug {
+  background: rgba(36, 33, 28, 0.05);
+  border: 1px solid rgba(36, 33, 28, 0.15);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.75rem;
+  color: #5a4a3a;
+}
+
+.sc-filter-debug-title {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.sc-filter-debug-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.sc-filter-debug-stat {
+  background: rgba(255, 255, 255, 0.5);
+  padding: 0.5rem;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.sc-filter-debug-stat-num {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.sc-filter-debug-stat-label {
+  display: block;
+  font-size: 0.7rem;
+  opacity: 0.7;
+  margin-top: 0.2rem;
+}
+
+.sc-filter-debug-list {
+  margin-top: 0.7rem;
+  padding: 0.7rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 6px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.sc-filter-debug-item {
+  padding: 0.3rem 0;
+  border-bottom: 1px solid rgba(36, 33, 28, 0.1);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.sc-filter-debug-item:last-child {
+  border-bottom: none;
+}
+
+.sc-filter-debug-item i {
+  margin-left: 0.3rem;
+  color: #e57373;
+  font-size: 0.65rem;
+}

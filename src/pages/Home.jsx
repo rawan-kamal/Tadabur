@@ -167,7 +167,7 @@ export default function Home() {
           <h3><span className="h-fs-40">مساراتنا</span></h3>
         </div>
         <div className="h-tracks-grid" id="courses">
-          <div className="h-track-card h-track-card-img1 h-rounded-left" >
+          <div className="h-track-card h-track-card-img1 h-rounded-left" onClick={() => navigate("/mafateeh")}>
             <div className="overlay h-rounded-left">
                <h2 className="h-track-title">تعلم مفاتيح التدبر</h2>
                 <p className="h-track-desc">
@@ -180,7 +180,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="h-track-card h-track-card-img2 h-rounded-middle" >
+          <div className="h-track-card h-track-card-img2 h-rounded-middle" onClick={() => navigate("/full-quran")}>
             <div className="overlay h-rounded-middle">
             <h2 className="h-track-title">تدبر القران كاملا</h2>
             <p className="h-track-desc">
@@ -193,7 +193,7 @@ export default function Home() {
             </div>      
           </div>
 
-          <div className="h-track-card h-track-card-img3 h-rounded-right" >
+          <div className="h-track-card h-track-card-img3 h-rounded-right" onClick={() => navigate("/courses")}>
             <div className="overlay h-rounded-right">
             <h2 className="h-track-title">دورات متنوعة</h2>
             <p className="h-track-desc">

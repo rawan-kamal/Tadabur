@@ -188,6 +188,21 @@ export function markVideoWatched_Single(courseId, videoId) {
   // Fire-and-forget cloud sync
   saveProgress(getUid(), key, "true")
 }
+export function initializeCourseVideos(courseId, allVideoIds) {
+  const updates = {}
+  allVideoIds.forEach(videoId => {
+    const key = `watch_${courseId}_${videoId}`
+    if (localStorage.getItem(key) === null) {
+      localStorage.setItem(key, "false")
+      updates[key] = "false"
+    }
+  })
+  
+  if (Object.keys(updates).length > 0) {
+    const uid = auth.currentUser?.uid
+    if (uid) saveProgressBatch(uid, updates)
+  }
+}
 
 export function getSingleCourseProgress(courseId, allVideoIds) {
   const watched = allVideoIds.filter(id => isVideoWatched_Single(courseId, id)).length

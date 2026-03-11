@@ -193,7 +193,34 @@ export default function AboutUsPage() {
         </div>
       </section>
 
-      {/* ── DEVELOPER ────────────────────────────────── */}
+      {/* ── FAQ ──────────────────────────────────────── */}
+      <section className="au-section">
+        <div className="t-container">
+          <div className="t-sec-title"><h3>الأسئلة الشائعة</h3></div>
+          <p className="au-faq-sub">إجابات على الأسئلة الأكثر شيوعًا حول موقعنا ورحلتك التفاعلية</p>
+          <div className="au-faq-list">
+            {FAQ.map((item, i) => (
+              <div
+                key={i}
+                className={`au-faq-item ${openFaq === i ? "au-faq-open" : ""}`}
+              >
+                <button
+                  className="au-faq-q"
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                >
+                  <span>{item.q}</span>
+                  <i className={`fa-solid ${openFaq === i ? "fa-chevron-up" : "fa-chevron-down"} au-faq-chevron`}></i>
+                </button>
+                {openFaq === i && (
+                  <div className="au-faq-a">{item.a}</div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+            {/* ── DEVELOPER ────────────────────────────────── */}
       <section className="au-section au-section-tinted">
         <div className="t-container">
           <div className="t-sec-title"><h3>المطوّرة</h3></div>
@@ -218,33 +245,6 @@ export default function AboutUsPage() {
                 </a>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── FAQ ──────────────────────────────────────── */}
-      <section className="au-section">
-        <div className="t-container">
-          <div className="t-sec-title"><h3>الأسئلة الشائعة</h3></div>
-          <p className="au-faq-sub">إجابات على الأسئلة الأكثر شيوعًا حول موقعنا ورحلتك التفاعلية</p>
-          <div className="au-faq-list">
-            {FAQ.map((item, i) => (
-              <div
-                key={i}
-                className={`au-faq-item ${openFaq === i ? "au-faq-open" : ""}`}
-              >
-                <button
-                  className="au-faq-q"
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                >
-                  <span>{item.q}</span>
-                  <i className={`fa-solid ${openFaq === i ? "fa-chevron-up" : "fa-chevron-down"} au-faq-chevron`}></i>
-                </button>
-                {openFaq === i && (
-                  <div className="au-faq-a">{item.a}</div>
-                )}
-              </div>
-            ))}
           </div>
         </div>
       </section>

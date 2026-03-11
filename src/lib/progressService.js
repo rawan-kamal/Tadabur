@@ -3,8 +3,9 @@
 // Syncs user progress between localStorage (fast) and Firestore (cloud)
 // ══════════════════════════════════════════════════════
 
-import { doc, getDoc, setDoc } from "firebase/firestore"
-import { db } from "./firebase"
+import { doc, getDoc, setDoc, deleteDoc } from "firebase/firestore"
+import { deleteUser } from "firebase/auth"
+import { db, auth } from "./firebase"
 
 // ─────────────────────────────────────────────────────
 // KEYS — all progress keys start with these prefixes
@@ -30,6 +31,7 @@ function getAllLocalProgress() {
 }
 
 // ─────────────────────────────────────────────────────
+// CLEAR local progress
 // ─────────────────────────────────────────────────────
 export function clearLocalProgress() {
   const keysToRemove = []
@@ -147,5 +149,63 @@ export async function saveUserProfile(uid, user) {
     }, { merge: true })
   } catch (err) {
     console.error("[Progress] Failed to save profile:", err)
+  }
+}
+
+// ─────────────────────────────────────────────────────
+// DELETE user account completely
+// Removes: Firestore data + Auth account + Local storage
+// ─────────────────────────────────────────────────────
+export async function deleteUserAccount(uid) {
+  if (!uid) throw new Error("No user ID provided")
+
+  try {
+    // 1. Delete Firestore document
+    const ref = getUserDocRef(uid)
+    await deleteDoc(ref)
+    console.log("[Progress] Deleted Firestore document")
+
+    // 2. Delete Firebase Auth account
+    const currentUser = auth.currentUser
+    if (currentUser && currentUser.uid === uid) {
+      await deleteUser(currentUser)
+      console.log("[Progress] Deleted Auth account")
+    }
+
+    // 3. Clear all local storage
+    clearLocalProgress()
+    console.log("[Progress] Cleared local storage")
+
+    return { success: true }
+  } catch (err) {
+    console.error("[Progress] Failed to delete account:", err)
+    throw err
+  }
+}
+
+// ─────────────────────────────────────────────────────
+// GET course progress from localStorage (no video IDs needed)
+// Scans localStorage for all watch_ keys matching the courseId
+// ─────────────────────────────────────────────────────
+export function getCourseProgressFromStorage(courseId) {
+  const prefix = `watch_${courseId}_`
+  let watchedCount = 0
+  let totalCount = 0
+
+  // Scan localStorage for all keys matching this course
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i)
+    if (key && key.startsWith(prefix)) {
+      totalCount++
+      if (localStorage.getItem(key) === "true") {
+        watchedCount++
+      }
+    }
+  }
+
+  return {
+    watched: watchedCount,
+    total: totalCount,
+    percent: totalCount > 0 ? Math.round((watchedCount / totalCount) * 100) : 0
   }
 }
