@@ -226,8 +226,7 @@ export default function Home() {
               <p className="h-best-desc">رحلة شاملة سورة بسورة مع المصحف المتزامن — ١١٤ سورة كاملة</p>
               <div className="h-best-chips">
                 <span>١١٤ سورة</span>
-                <span>٨٠٠+ فيديو</span>
-                <span>مجاني</span>
+                <span>١٠٠٠+ فيديو</span>
               </div>
               <button className="h-best-btn h-best-btn-gold h-rounded-pill">ابدأ الآن ←</button>
             </div>
