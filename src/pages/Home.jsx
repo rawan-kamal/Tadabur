@@ -56,7 +56,7 @@ export default function Home() {
               <p className="h-hero-desc">منصة متكاملة لتدبر القرآن الكريم، متاحة للجميع مجاناً وبدون أي رسوم.</p>
               <div className="h-hero-btns">
                 <button className="h-btn-dark h-rounded-pill"
-                  onClick={() => document.getElementById("courses")?.scrollIntoView({ behavior: "smooth" })}>
+                  onClick={() => navigate("/courses")}>
                   ابدأ الان
                 </button>
                 <button className="h-btn-outline-main h-rounded-pill"
