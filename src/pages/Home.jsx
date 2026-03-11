@@ -16,6 +16,11 @@ const WHY_CARDS = [
 
 const JOURNEY_CARDS = [
   {
+    icon: "./icons/three-quarters.png",
+    title: "ابدأ رحلتك",
+    desc: "استكشف منهج تدبّر المصمم خصيصاً ليقودك خطوة بخطوة نحو فهم أعمق للقرآن."
+  },
+  {
     icon: "./icons/quarter.png",
     title: "شاهد وتعلّم",
     desc: "استمتع بتجربة تعليمية متكاملة تجمع بين التلاوة، الشرح، والمقاطع التعليمية المختارة بعناية."
@@ -26,15 +31,11 @@ const JOURNEY_CARDS = [
     desc: "تأمل الآيات مع أدوات تساعدك على الربط بين التلاوة والشرح والتفسير."
   },
   {
-    icon: "./icons/three-quarters.png",
+    icon: "./icons/circle.png",
     title: "تتبع تقدمك",
     desc: "اعرف مكانك في الرحلة دائماً من خلال نظام متابعة دقيق يوضح إنجازك في كل سورة وكل درس."
   },
-  {
-    icon: "./icons/circle.png",
-    title: "ابدأ رحلتك",
-    desc: "استكشف منهج تدبّر المصمم خصيصاً ليقودك خطوة بخطوة نحو فهم أعمق للقرآن."
-  }
+
 ]
 
 export default function Home() {

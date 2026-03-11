@@ -10,6 +10,7 @@ import {
   initializeCourseVideos
 } from "../data/courses"
 import { extractSurahFromTitle, extractJuzFromTitle } from "../lib/surahMap"
+import LoginNudgeBanner from "../components/LoginNudgeBanner"
 import "./PlayerPage.css"
 
 function cleanTitle(title, cleanupWords = []) {
@@ -27,12 +28,17 @@ export default function PlayerPage() {
   const listPath = courseId ? `/course/${courseId}` : "/mafateeh"
   const isMafateeh = !courseId
 
-  const { videos, loading } = usePlaylistVideos(course?.playlistId)
+  const { videos: rawVideos, loading } = usePlaylistVideos(course?.playlistId)
+
+  // Reverse order for playlist-6 only (مجالس القرآن - سورة فاطر)
+  const videos = course?.id === "playlist-6" ? [...rawVideos].reverse() : rawVideos
 
   const [progress, setProgress]         = useState({ watched: 0, total: 0, percent: 0 })
   const [search, setSearch]             = useState("")
   const [toast, setToast]               = useState("")
   const [showComplete, setShowComplete] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [listPanelVisible, setListPanelVisible] = useState(true)
 
   const currentIndex = videos.findIndex(v => v.videoId === videoId)
   const currentVideo = videos[currentIndex]
@@ -56,6 +62,7 @@ export default function PlayerPage() {
     if (!course) { navigate("/"); return }
     refreshProgress()
     setShowComplete(false)
+    setMobileMenuOpen(false) // Close menu on video change
   }, [videoId, videos])
 
   const showToast = (msg) => { setToast(msg); setTimeout(() => setToast(""), 2500) }
@@ -92,6 +99,14 @@ export default function PlayerPage() {
       {/* ── BREADCRUMB ── */}
       <div className="plr-bc-bar">
         <div className="plr-bc-inner">
+          {/* Mobile Menu Button */}
+          <button 
+            className="plr-mobile-menu-btn"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="قائمة الدروس"
+          >
+            <i className="fa-solid fa-bars"></i>
+          </button>
 
           <div className="plr-bc-trail">
             <button className="plr-bc-btn" onClick={() => navigate("/")}>
@@ -124,14 +139,33 @@ export default function PlayerPage() {
         </div>
       </div>
 
-      {/* ── LAYOUT ── */}
-      {/* mafateeh: video | list  /  playlist: list | video | quran */}
-      <div className={`plr-layout ${showQuran ? "plr-layout-3" : "plr-layout-2"}`}>
+      {/* ── LOGIN NUDGE BANNER ── */}
+      <LoginNudgeBanner />
 
-        {/* LIST — left for playlist, right for mafateeh */}
-        <div className="plr-list-panel">
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div 
+          className="plr-mobile-overlay" 
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* ── LAYOUT ── */}
+      <div className={`plr-layout ${showQuran ? "plr-layout-3" : "plr-layout-2"} ${!listPanelVisible ? "plr-layout-no-list" : ""}`}>
+
+        {/* LIST */}
+        <div className={`plr-list-panel ${mobileMenuOpen ? "plr-list-open" : ""} ${!listPanelVisible ? "plr-list-hidden" : ""}`}>
           <div className="plr-list-header">
-            <div className="plr-list-title">{course.title}</div>
+            <div className="plr-list-title-row">
+              <div className="plr-list-title">{course.title}</div>
+              <button 
+                className="plr-list-close-btn"
+                onClick={() => setListPanelVisible(false)}
+                title="إخفاء القائمة"
+              >
+                <i className="fa-solid fa-xmark"></i>
+              </button>
+            </div>
             <div className="plr-list-bar">
               <div className="plr-list-bar-fill" style={{ width: `${progress.percent}%` }} />
             </div>
@@ -159,7 +193,10 @@ export default function PlayerPage() {
                 <div
                   key={video.videoId}
                   className={`plr-lesson ${isActive ? "plr-active" : ""} ${watched ? "plr-watched" : ""}`}
-                  onClick={() => navigate(`/${basePath}/${video.videoId}`)}
+                  onClick={() => {
+                    navigate(`/${basePath}/${video.videoId}`)
+                    setMobileMenuOpen(false)
+                  }}
                 >
                   <div className="plr-lesson-num">
                     {watched
@@ -201,7 +238,7 @@ export default function PlayerPage() {
           </div>
         </div>
 
-        {/* QURAN — playlist only, when surah/juz detected */}
+        {/* QURAN */}
         {showQuran && (
           <div className="plr-quran-panel">
             <div className="plr-quran-header">
@@ -227,6 +264,18 @@ export default function PlayerPage() {
         )}
 
       </div>
+
+      {/* ── FLOATING REOPEN BUTTON ── */}
+      {!listPanelVisible && (
+        <button 
+          className="plr-reopen-list-btn"
+          onClick={() => setListPanelVisible(true)}
+          title="إظهار القائمة"
+        >
+          <i className="fa-solid fa-bars"></i>
+          <span>القائمة</span>
+        </button>
+      )}
 
       {/* ── BOTTOM BAR ── */}
       <div className="plr-bottombar">

@@ -10,6 +10,7 @@ import {
   getSurahProgress,
 } from "../data/courses"
 import { filterCourseVideos } from "../lib/videoFilter"
+import LoginNudgeBanner from "../components/LoginNudgeBanner"
 import "./SurahPlayerPage.css"
 
 const COURSE_ID = FULL_QURAN_COURSE.id
@@ -48,12 +49,14 @@ export default function SurahPlayerPage() {
 
   const { videos: rawVideos, loading } = usePlaylistVideos(playlistId)
 
-  // Filter and deduplicate videos for Full Quran
   const videos = useMemo(() => {
     if (!rawVideos.length) return []
     const filtered = filterCourseVideos(rawVideos, 'full-quran')
-    return Array.from(new Map(filtered.map(v => [v.videoId, v])).values())
-  }, [rawVideos])
+    const deduped = Array.from(new Map(filtered.map(v => [v.videoId, v])).values())
+    
+    // Reverse order for Surah 35 (فاطر) only
+    return num === 35 ? [...deduped].reverse() : deduped
+  }, [rawVideos, num])
 
   const [currentEpisode, setCurrentEpisode] = useState(1)
   const [watchedMap, setWatchedMap]         = useState({})
@@ -144,6 +147,9 @@ export default function SurahPlayerPage() {
           </div>
         </div>
       </div>
+
+      {/* ── LOGIN NUDGE BANNER ── */}
+      <LoginNudgeBanner />
 
       {/* ── MAIN LAYOUT ── */}
       <div className="sp-layout">

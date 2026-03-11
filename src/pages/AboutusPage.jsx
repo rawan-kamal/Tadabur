@@ -235,6 +235,10 @@ export default function AboutUsPage() {
                 تعليمية متكاملة. المنصة مبنية بـ React وFirebase وتعمل بالكامل من المتصفح.
               </p>
               <div className="au-dev-links">
+                <a href="https://rawan-kamal.github.io/Portfolio/" target="_blank" rel="noreferrer" className="au-dev-link">
+                  <i className="fa-solid fa-globe"></i>
+                  الموقع الشخصي
+                </a>
                 <a href="https://github.com/rawan-kamal" target="_blank" rel="noreferrer" className="au-dev-link">
                   <i className="fa-brands fa-github"></i>
                   GitHub

@@ -1,7 +1,6 @@
 /* ══════════════════════════════════════════════════════
    PLAYER PAGE CSS — PlayerPage.jsx
-   Handles /mafateeh/:videoId + /course/:courseId/:videoId
-   Mirrors SurahPlayerPage design exactly
+   Mobile Fixed: Menu as sidebar, Video + Quran visible
 ══════════════════════════════════════════════════════ */
 
 .plr-shell {
@@ -23,7 +22,7 @@
 .plr-loading-screen p { font-size: 0.85rem; margin: 0; }
 
 /* ══════════════════════════════════════════════════════
-   BREADCRUMB BAR — Primary Background Version
+   BREADCRUMB BAR
 ══════════════════════════════════════════════════════ */
 .plr-bc-bar {
   background: var(--primary-color);
@@ -33,7 +32,6 @@
   overflow: hidden;
 }
 
-/* Top shimmer */
 .plr-bc-bar::before {
   content: "";
   position: absolute;
@@ -44,6 +42,30 @@
 
 .plr-bc-inner {
   padding: 0.65rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+/* Mobile Menu Button */
+.plr-mobile-menu-btn {
+  display: none; /* Hidden on desktop */
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(36,33,28,0.15);
+  border: 1px solid rgba(36,33,28,0.25);
+  color: var(--primary-dark);
+  font-size: 1.1rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.plr-mobile-menu-btn:hover {
+  background: rgba(36,33,28,0.25);
 }
 
 .plr-bc-trail {
@@ -51,7 +73,8 @@
   align-items: center;
   gap: 0.4rem;
   overflow: hidden;
-  width: 100%;
+  flex: 1;
+  min-width: 0;
 }
 
 .plr-bc-btn {
@@ -76,11 +99,12 @@
   background: rgba(194,176,152,0.18);
 }
 
-.plr-bc-btn i {
-  font-size: 0.75rem;
+.plr-bc-sep {
+  font-size: 0.7rem;
+  color: rgba(36,33,28,0.4);
+  flex-shrink: 0;
 }
 
-/* Active breadcrumb */
 .plr-bc-active {
   color: var(--primary-dark) !important;
   background: rgba(194,176,152,0.25) !important;
@@ -93,12 +117,8 @@
   flex-shrink: 1;
 }
 
-
 /* ══════════════════════════════════════════════════════
    LAYOUTS
-   plr-layout-3       → list | video | quran  (playlist + quran detected)
-   plr-layout-2       → list | video           (playlist, no quran)
-   plr-layout-2-flip  → video | list           (mafateeh)
 ══════════════════════════════════════════════════════ */
 .plr-layout {
   flex: 1;
@@ -107,9 +127,8 @@
   min-height: 0;
 }
 
-.plr-layout-3       { grid-template-columns: 300px 1fr 1fr; }
-.plr-layout-2       { grid-template-columns: 300px 1fr; }
-.plr-layout-2-flip  { grid-template-columns: 1fr 340px; }
+.plr-layout-3 { grid-template-columns: 300px 1fr 1fr; }
+.plr-layout-2 { grid-template-columns: 300px 1fr; }
 
 /* ══════════════════════════════════════════════════════
    LESSON LIST PANEL
@@ -120,14 +139,7 @@
   background: #141210;
   border-left: 1px solid rgba(194,176,152,0.07);
   overflow: hidden;
-  /* default: left col in playlist layout */
-}
-
-/* When list is on the right (mafateeh layout) */
-.plr-list-right {
-  border-left: none;
-  border-right: 1px solid rgba(194,176,152,0.07);
-  order: 2;
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
 }
 
 .plr-list-header {
@@ -135,6 +147,14 @@
   background: linear-gradient(to bottom, #1e1b18, #141210);
   border-bottom: 1px solid rgba(194,176,152,0.08);
   flex-shrink: 0;
+}
+
+.plr-list-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.55rem;
+  gap: 0.5rem;
 }
 
 .plr-list-title {
@@ -145,7 +165,29 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 0.55rem;
+  flex: 1;
+}
+
+.plr-list-close-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.4);
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.plr-list-close-btn:hover {
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.7);
+  border-color: rgba(255,255,255,0.2);
 }
 
 .plr-list-bar {
@@ -381,7 +423,7 @@
 }
 
 /* ══════════════════════════════════════════════════════
-   BOTTOM BAR — identical to .sp-bottombar
+   BOTTOM BAR
 ══════════════════════════════════════════════════════ */
 .plr-bottombar {
   flex-shrink: 0;
@@ -501,7 +543,7 @@
 .plr-toast.plr-toast-show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 /* ══════════════════════════════════════════════════════
-   COMPLETE OVERLAY — identical to .sp-complete-overlay
+   COMPLETE OVERLAY
 ══════════════════════════════════════════════════════ */
 .plr-complete-overlay {
   position: fixed;
@@ -607,24 +649,195 @@
 .plr-complete-secondary:hover { background: rgba(255,255,255,0.12); color: #fff; }
 
 /* ══════════════════════════════════════════════════════
-   RESPONSIVE
+   LIST PANEL HIDE/SHOW
 ══════════════════════════════════════════════════════ */
+
+/* Hidden list panel on desktop */
+.plr-list-panel.plr-list-hidden {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
+  z-index: 100;
+  box-shadow: 4px 0 24px rgba(0,0,0,0.4);
+}
+
+/* Layout adjustments when list is hidden */
+.plr-layout.plr-layout-no-list {
+  grid-template-columns: 1fr 1fr !important;
+}
+
+.plr-layout.plr-layout-no-list.plr-layout-2 {
+  grid-template-columns: 1fr !important;
+}
+
+/* Floating reopen button */
+.plr-reopen-list-btn {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.8rem 0.5rem;
+  background: linear-gradient(to bottom, #1e1b18, #141210);
+  border: 1px solid rgba(194,176,152,0.15);
+  border-left: none;
+  border-radius: 0 8px 8px 0;
+  color: var(--primary-color);
+  font-family: var(--font-main);
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 100;
+  box-shadow: 4px 0 16px rgba(0,0,0,0.3);
+}
+
+.plr-reopen-list-btn:hover {
+  background: linear-gradient(to bottom, #2a2520, #1a1714);
+  padding-left: 0.8rem;
+  box-shadow: 6px 0 24px rgba(0,0,0,0.4);
+}
+
+.plr-reopen-list-btn i {
+  font-size: 1rem;
+}
+
+.plr-reopen-list-btn span {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* ══════════════════════════════════════════════════════
+   MOBILE RESPONSIVE
+══════════════════════════════════════════════════════ */
+
+/* Mobile Overlay */
+.plr-mobile-overlay {
+  display: none;
+}
+
 @media (max-width: 1100px) {
   .plr-layout-3 { grid-template-columns: 260px 1fr 1fr; }
 }
 
 @media (max-width: 900px) {
-  .plr-layout-3, .plr-layout-2, .plr-layout-2-flip {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 40vh;
+  /* Show mobile menu button */
+  .plr-mobile-menu-btn {
+    display: flex;
   }
-  .plr-quran-panel { display: none; }
-  .plr-list-right  { order: unset; }
-  .plr-bc-meta     { display: none; }
+
+  /* Hide desktop close/reopen buttons on mobile */
+  .plr-list-close-btn,
+  .plr-reopen-list-btn {
+    display: none;
+  }
+
+  /* Hide some breadcrumb items on mobile */
+  .plr-bc-sep, .plr-bc-trail .plr-bc-btn:not(:last-of-type) {
+    display: none;
+  }
+
+  /* Mobile overlay for sidebar */
+  .plr-mobile-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 998;
+    animation: fadeIn 0.2s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* List panel becomes sliding sidebar */
+  .plr-list-panel,
+  .plr-list-panel.plr-list-hidden {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    width: 85%;
+    max-width: 320px;
+    z-index: 999;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
+    border-left: none;
+    border-right: 1px solid rgba(194,176,152,0.2);
+    box-shadow: -8px 0 32px rgba(0,0,0,0.5);
+  }
+
+  .plr-list-panel.plr-list-open {
+    transform: translateX(0) !important;
+  }
+
+  /* Stack video and Quran vertically on tablets */
+  .plr-layout,
+  .plr-layout.plr-layout-no-list {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .plr-layout-2,
+  .plr-layout.plr-layout-no-list.plr-layout-2 {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 1fr;
+  }
+
+  /* Keep Quran visible on mobile */
+  .plr-quran-panel {
+    display: flex !important;
+  }
 }
 
-@media (max-width: 580px) {
+@media (max-width: 640px) {
   .plr-bc-inner { padding: 0.5rem 1rem; }
   .plr-mark-btn span { display: none; }
   .plr-complete-card { padding: 2rem 1.5rem; }
+  
+  /* Give video more space than Quran on small screens */
+  .plr-layout,
+  .plr-layout.plr-layout-no-list {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 1.2fr 1fr;
+  }
+
+  .plr-layout-2,
+  .plr-layout.plr-layout-no-list.plr-layout-2 {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 1fr;
+  }
+
+  .plr-list-panel {
+    width: 90%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .plr-bottombar {
+    padding: 0 0.8rem;
+    gap: 0.5rem;
+  }
+
+  .plr-progress-info {
+    font-size: 0.65rem;
+  }
+
+  .plr-progress-info span:first-child {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }

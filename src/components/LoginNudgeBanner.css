@@ -1,0 +1,176 @@
+/* ══════════════════════════════════════════════════════
+   LOGIN NUDGE BANNER
+   Shows once per session on player pages
+══════════════════════════════════════════════════════ */
+
+.login-nudge-banner {
+  position: fixed;
+  top: 57px; /* Below breadcrumb */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  
+  background: linear-gradient(135deg, #2a2520, #1a1714);
+  border: 1px solid rgba(194,176,152,0.25);
+  border-radius: 12px;
+  padding: 0.75rem 1.2rem;
+  
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  
+  animation: slideDown 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.login-nudge-content {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.login-nudge-icon {
+  font-size: 1.1rem;
+  color: var(--primary-color);
+  flex-shrink: 0;
+}
+
+.login-nudge-text {
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  white-space: nowrap;
+}
+
+.login-nudge-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  
+  background: linear-gradient(135deg, var(--primary-color), #d4c4ae);
+  color: var(--primary-dark);
+  
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 700;
+  
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  
+  box-shadow: 0 2px 8px rgba(194,176,152,0.3);
+}
+
+.login-nudge-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(194,176,152,0.4);
+}
+
+.login-nudge-btn i {
+  font-size: 0.75rem;
+}
+
+.login-nudge-close {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  
+  color: rgba(255,255,255,0.4);
+  font-size: 0.9rem;
+  
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.login-nudge-close:hover {
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.7);
+  border-color: rgba(255,255,255,0.2);
+}
+
+/* ══════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .login-nudge-banner {
+    top: 53px; /* Adjust for smaller breadcrumb */
+    left: 1rem;
+    right: 1rem;
+    transform: none;
+    max-width: calc(100% - 2rem);
+  }
+
+  .login-nudge-text {
+    font-size: 0.82rem;
+  }
+
+  .login-nudge-btn {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .login-nudge-banner {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding: 0.65rem 0.9rem;
+  }
+
+  .login-nudge-content {
+    gap: 0.6rem;
+  }
+
+  .login-nudge-text {
+    font-size: 0.78rem;
+    white-space: normal;
+    line-height: 1.3;
+  }
+
+  .login-nudge-close {
+    width: 26px;
+    height: 26px;
+    font-size: 0.85rem;
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-nudge-icon {
+    font-size: 1rem;
+  }
+
+  .login-nudge-btn span {
+    display: none; /* Show icon only on very small screens */
+  }
+
+  .login-nudge-btn {
+    padding: 0.45rem 0.65rem;
+  }
+}

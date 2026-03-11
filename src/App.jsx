@@ -13,35 +13,37 @@ import LoginPage from "./pages/LoginPage"
 import TermsPage from "./pages/TermsPage"
 import PrivacyPage from "./pages/PrivacyPage"
 import ScrollToTop from "./components/ScrollToTop"
+import SuggestCourseButton from "./components/SuggestCourseButton"
 
 function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <SuggestCourseButton />
       <Routes>
-        {/* Public */}
-        <Route path="/"      element={<Home />} />
+        {/* Public Pages */}
+        <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/aboutus" element={<AboutUsPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
 
-        {/* Protected */}
-        <Route path="/courses"    element={<ProtectedRoute><CoursesPage /></ProtectedRoute>} />
-        <Route path="/profile"    element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+        {/* Free Access - Browse & Watch */}
+        <Route path="/courses" element={<CoursesPage />} />
+        <Route path="/full-quran" element={<FullQuranPage />} />
+        <Route path="/full-quran/:surahNumber" element={<SurahPlayerPage />} />
 
-        {/* مفاتيح التدبر */}
-        <Route path="/mafateeh"           element={<ProtectedRoute><CoursePage /></ProtectedRoute>} />
-        <Route path="/mafateeh/:videoId"  element={<ProtectedRoute><PlayerPage /></ProtectedRoute>} />
+        {/* مفاتيح التدبر - Free Access */}
+        <Route path="/mafateeh" element={<CoursePage />} />
+        <Route path="/mafateeh/:videoId" element={<PlayerPage />} />
 
-        {/* Playlist courses */}
-        <Route path="/course/:courseId"            element={<ProtectedRoute><CoursePage /></ProtectedRoute>} />
-        <Route path="/course/:courseId/:videoId"   element={<ProtectedRoute><PlayerPage /></ProtectedRoute>} />
+        {/* Playlist Courses - Free Access */}
+        <Route path="/course/:courseId" element={<CoursePage />} />
+        <Route path="/course/:courseId/:videoId" element={<PlayerPage />} />
 
-        {/* Full Quran */}
-        <Route path="/full-quran"              element={<ProtectedRoute><FullQuranPage /></ProtectedRoute>} />
-        <Route path="/full-quran/:surahNumber" element={<ProtectedRoute><SurahPlayerPage /></ProtectedRoute>} />
+        {/* Protected - Profile Only */}
+        <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   )

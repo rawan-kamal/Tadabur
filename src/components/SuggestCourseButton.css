@@ -1,0 +1,49 @@
+/* ══════════════════════════════════════════════════════
+   SUGGEST COURSE BUTTON — suggest- prefix
+   ══════════════════════════════════════════════════════ */
+
+/* ── FLOATING BUTTON ────────────────────────────────── */
+.suggest-float-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.4rem;
+  background: linear-gradient(135deg, var(--primary-color), #d4c4ae);
+  color: var(--primary-dark);
+  border: none;
+  border-radius: 100px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(194, 176, 152, 0.4);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  animation: suggest-pulse 2s infinite;
+}
+
+.suggest-float-btn:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(194, 176, 152, 0.5);
+}
+
+.suggest-float-btn i {
+  font-size: 1.1rem;
+  color: var(--primary-dark);
+}
+
+.suggest-float-text {
+  white-space: nowrap;
+}
+
+@keyframes suggest-pulse {
+  0%, 100% {
+    box-shadow: 0 8px 24px rgba(194, 176, 152, 0.4);
+  }
+  50% {
+    box-shadow: 0 8px 32px rgba(194, 176, 152, 0.6);
+  }
+}

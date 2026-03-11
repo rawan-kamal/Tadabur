@@ -504,7 +504,7 @@ nav {
   .h-tracks-grid { grid-template-columns: 1fr; }
   .h-rounded-left, .h-rounded-right, .h-rounded-middle { border-radius: 16px; }
   .h-journey-cards { grid-template-columns: 1fr; }
-  .h-best-grid { grid-template-columns: 1fr; }
+  .h-best-grid { grid-template-columns: 1fr ; }
   .h-best-featured { grid-column: auto; }
   .h-footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .h-footer-bottom { flex-direction: column; text-align: center; }

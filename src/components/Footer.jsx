@@ -60,7 +60,7 @@ export default function Footer() {
         <hr className="h-footer-hr" />
         <div className="h-footer-bottom">
           <p>© 2026 جميع الحقوق محفوظة - منصة تدبر</p>
-          <p>تم التصميم بواسطة <strong>روان كمال</strong></p>
+          <p>تم التصميم و التطوير بواسطة <a href="https://www.linkedin.com/in/-rawankamal" target="_blank" rel="noopener noreferrer"><strong>روان كمال</strong></a></p>
         </div>
       </div>
     </footer>
