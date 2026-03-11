@@ -12,10 +12,12 @@ import ProfilePage from "./pages/ProfilePage"
 import LoginPage from "./pages/LoginPage"
 import TermsPage from "./pages/TermsPage"
 import PrivacyPage from "./pages/PrivacyPage"
+import ScrollToTop from "./components/ScrollToTop"
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         {/* Public */}
         <Route path="/"      element={<Home />} />

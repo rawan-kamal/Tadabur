@@ -3,12 +3,12 @@ import { getAuth } from "firebase/auth"
 import { getFirestore } from "firebase/firestore"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAH9z2iOeBWwWXjGhFN6evUiGYfM5e2haA",
-  authDomain: "tadabur-app.firebaseapp.com",
-  projectId: "tadabur-app",
-  storageBucket: "tadabur-app.firebasestorage.app",
-  messagingSenderId: "370901413086",
-  appId: "1:370901413086:web:b8c04f6a3f8e1ff981a64f"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 }
 
 const app = initializeApp(firebaseConfig)
