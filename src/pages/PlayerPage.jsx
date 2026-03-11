@@ -7,6 +7,7 @@ import {
   isVideoWatched_Single,
   markVideoWatched_Single,
   getSingleCourseProgress,
+  initializeCourseVideos
 } from "../data/courses"
 import { extractSurahFromTitle, extractJuzFromTitle } from "../lib/surahMap"
 import "./PlayerPage.css"

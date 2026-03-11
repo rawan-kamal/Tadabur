@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useMemo } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { usePlaylistVideos } from "../hooks/usePlaylistVideos"
 import {
@@ -9,6 +9,7 @@ import {
   markSurahDone,
   getSurahProgress,
 } from "../data/courses"
+import { filterCourseVideos } from "../lib/videoFilter"
 import "./SurahPlayerPage.css"
 
 const COURSE_ID = FULL_QURAN_COURSE.id
@@ -45,7 +46,14 @@ export default function SurahPlayerPage() {
   const playlistId    = surah ? extractPlaylistId(surah.playlistUrl)    : null
   const singleVideoId = surah ? extractSingleVideoId(surah.playlistUrl) : null
 
-  const { videos, loading } = usePlaylistVideos(playlistId)
+  const { videos: rawVideos, loading } = usePlaylistVideos(playlistId)
+
+  // Filter and deduplicate videos for Full Quran
+  const videos = useMemo(() => {
+    if (!rawVideos.length) return []
+    const filtered = filterCourseVideos(rawVideos, 'full-quran')
+    return Array.from(new Map(filtered.map(v => [v.videoId, v])).values())
+  }, [rawVideos])
 
   const [currentEpisode, setCurrentEpisode] = useState(1)
   const [watchedMap, setWatchedMap]         = useState({})

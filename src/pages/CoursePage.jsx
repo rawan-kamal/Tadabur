@@ -194,11 +194,6 @@ export default function CoursePage() {
                           <div className="cov-lesson-title">{title}</div>
                           <div className="cov-lesson-sub">
                             <span>الدرس {realIdx + 1} من {videos.length}</span>
-                            {surahNum && (
-                              <span className="cov-surah-badge">
-                                <i className="fa-solid fa-book-open"></i> سورة {surahNum}
-                              </span>
-                            )}
                           </div>
                         </div>
                         <div className="cov-lesson-arrow">

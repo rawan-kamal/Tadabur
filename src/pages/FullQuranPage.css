@@ -373,7 +373,7 @@
   border-color: #4caf8a;
   box-shadow: 0 10px 28px rgba(76, 175, 138, 0.12);
 }
-
+.fq-surah-card.fq-done .fq-mini-fill { background: #4caf8a !important; }
 /* Stagger animation */
 .fq-surah-card:nth-child(odd)  { animation-delay: calc(var(--i, 0) * 0.02s); }
 .fq-surah-card:nth-child(even) { animation-delay: calc(var(--i, 0) * 0.02s + 0.01s); }
@@ -458,7 +458,7 @@
 
 .fq-mini-fill {
   height: 100%;
-  background: linear-gradient(90deg, #4caf8a, #6bc9a6);
+  background: var(--primary-color, #c2b098);
   border-radius: 100px;
   transition: width 0.6s ease;
 }
@@ -495,4 +495,29 @@
   .fq-hero { padding: 3rem 0 2.5rem; }
   .fq-sidebar { grid-template-columns: 1fr; }
   .fq-surah-grid { grid-template-columns: 1fr; }
+}
+
+.fq-certificate-btn {
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  margin-top: 1rem;
+  border-radius: 100px;
+  border: 2px solid #ffd700;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #24211c;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(255, 215, 0, 0.3);
+}
+
+.fq-certificate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
 }
