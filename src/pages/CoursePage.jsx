@@ -12,7 +12,6 @@ import { extractSurahFromTitle } from "../lib/surahMap"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 import "./CoursePage.css"
-import "../shared-course.css"
 
 const CIRCUMFERENCE = 2 * Math.PI * 54
 
@@ -70,7 +69,7 @@ export default function CoursePage() {
         </div>
       </div>
 
-          {/* ── BREADCRUMB ── */}
+      {/* ── BREADCRUMB ── */}
       <div className="cov-bc-bar">
         <div className="t-container">
           <div className="cov-bc-trail">

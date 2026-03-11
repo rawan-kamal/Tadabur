@@ -30,8 +30,7 @@ export default function PlayerPage() {
 
   const { videos: rawVideos, loading } = usePlaylistVideos(course?.playlistId)
 
-  // Reverse order for playlist-6 only (مجالس القرآن - سورة فاطر)
-  const videos = course?.id === "playlist-6" ? [...rawVideos].reverse() : rawVideos
+  const videos = rawVideos
 
   const [progress, setProgress]         = useState({ watched: 0, total: 0, percent: 0 })
   const [search, setSearch]             = useState("")
