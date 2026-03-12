@@ -139,7 +139,7 @@ export default function CoursePage() {
                   { label: "الشيخ",      value: course.instructor || "فاضل سليمان" },
                   { label: "عدد الدروس", value: `${videos.length} درس` },
                   { label: "المسار",     value: course.title },
-                  { label: "المستوى",    value: courseId ? "متوسط" : "مبتدئ" },
+                  // { label: "المستوى",    value: courseId ? "متوسط" : "مبتدئ" },
                 ].map(r => (
                   <div className="sc-info-row" key={r.label}>
                     <span className="sc-info-key">{r.label}</span>

@@ -44,7 +44,7 @@ export default function Navbar() {
         <div className="h-container">
           <nav className="h-navbar">
             <div className="h-logo" onClick={() => navigate("/")}>
-              <img src="./logo.png" alt="logo" width="60"
+              <img src="/logo.png" alt="logo" width="60"
                 onError={e => { e.target.style.display = "none" }} />
               تدبر
             </div>
@@ -125,7 +125,7 @@ export default function Navbar() {
       <div className={`h-mobile-drawer ${mobileOpen ? "h-mobile-open" : ""}`}>
         <div className="h-mobile-drawer-header">
           <div className="h-logo" onClick={() => { navigate("/"); setMobileOpen(false) }}>
-            <img src="./logo.png" alt="logo" width="40"
+            <img src="/logo.png" alt="logo" width="40"
               onError={e => { e.target.style.display = "none" }} />
             تدبر
           </div>

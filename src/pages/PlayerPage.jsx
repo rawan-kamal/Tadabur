@@ -95,48 +95,54 @@ export default function PlayerPage() {
 
   return (
     <div className="plr-shell">
-      {/* ── BREADCRUMB ── */}
-      <div className="plr-bc-bar">
-        <div className="plr-bc-inner">
-          {/* Mobile Menu Button */}
-          <button 
-            className="plr-mobile-menu-btn"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="قائمة الدروس"
-          >
-            <i className="fa-solid fa-bars"></i>
-          </button>
+{/* ── BREADCRUMB ── */}
+  <div className="plr-bc-bar">
+    <div className="plr-bc-inner">
+      {/* Mobile Menu Button */}
+      <button 
+        className="plr-mobile-menu-btn"
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        aria-label="قائمة الدروس"
+      >
+        <i className="fa-solid fa-bars"></i>
+      </button>
 
-          <div className="plr-bc-trail">
-            <button className="plr-bc-btn" onClick={() => navigate("/")}>
-              <span>الرئيسية</span>
+      {/* Desktop Breadcrumb Trail */}
+      <div className="plr-bc-trail plr-bc-desktop">
+        <button className="plr-bc-btn" onClick={() => navigate("/")}>
+          <span>الرئيسية</span>
+        </button>
+        <i className="fa-solid fa-chevron-left plr-bc-sep"></i>
+
+        {isMafateeh ? (
+          <button className="plr-bc-btn" onClick={() => navigate("/mafateeh")}>
+            <span>مفاتيح التدبر</span>
+          </button>
+        ) : (
+          <>
+            <button className="plr-bc-btn" onClick={() => navigate("/courses")}>
+              <span>الدورات</span>
             </button>
             <i className="fa-solid fa-chevron-left plr-bc-sep"></i>
+            <button className="plr-bc-btn" onClick={() => navigate(listPath)}>
+              <span>{course.title}</span>
+            </button>
+          </>
+        )}
 
-            {isMafateeh ? (
-              <button className="plr-bc-btn" onClick={() => navigate("/mafateeh")}>
-                <span>مفاتيح التدبر</span>
-              </button>
-            ) : (
-              <>
-                <button className="plr-bc-btn" onClick={() => navigate("/courses")}>
-                  <span>الدورات</span>
-                </button>
-                <i className="fa-solid fa-chevron-left plr-bc-sep"></i>
-                <button className="plr-bc-btn" onClick={() => navigate(listPath)}>
-                  <span>{course.title}</span>
-                </button>
-              </>
-            )}
-
-            <i className="fa-solid fa-chevron-left plr-bc-sep"></i>
-            <div className="plr-bc-btn plr-bc-active">
-              <span>{currentVideo ? title(currentVideo) : "..."}</span>
-            </div>
-          </div>
-
+        <i className="fa-solid fa-chevron-left plr-bc-sep"></i>
+        <div className="plr-bc-btn plr-bc-active">
+          <span>{currentVideo ? title(currentVideo) : "..."}</span>
         </div>
       </div>
+
+      {/* Mobile Breadcrumb - Course Name Only */}
+      <div className="plr-bc-mobile">
+        <span className="plr-bc-course-name">{course.title}</span>
+      </div>
+
+    </div>
+  </div>
 
       {/* ── LOGIN NUDGE BANNER ── */}
       <LoginNudgeBanner />

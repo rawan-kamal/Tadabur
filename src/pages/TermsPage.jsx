@@ -70,7 +70,6 @@ export default function Terms() {
           
           <p style={{ marginTop: '1rem' }}><strong>ممنوع:</strong></p>
           <ul>
-            <li>نسخ أو إعادة نشر المحتوى</li>
             <li>استخدام المنصة لأغراض تجارية</li>
             <li>محاولة اختراق النظام</li>
             <li>إرسال محتوى ضار</li>

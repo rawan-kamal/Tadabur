@@ -722,12 +722,41 @@
 .plr-mobile-overlay {
   display: none;
 }
+/* Mobile breadcrumb - hidden by default */
+.plr-bc-mobile {
+  display: none;
+}
 
+.plr-bc-course-name {
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+  background: rgba(194,176,152,0.25);
+  border: 1px solid rgba(194,176,152,0.35);
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 @media (max-width: 1100px) {
   .plr-layout-3 { grid-template-columns: 260px 1fr 1fr; }
 }
 
 @media (max-width: 900px) {
+
+  /* Hide desktop breadcrumb, show mobile version */
+  .plr-bc-desktop {
+    display: none !important;
+  }
+
+  .plr-bc-mobile {
+    display: block;
+    flex: 1;
+    min-width: 0;
+  }
   /* Show mobile menu button */
   .plr-mobile-menu-btn {
     display: flex;
