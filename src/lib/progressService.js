@@ -8,6 +8,13 @@ import { deleteUser } from "firebase/auth"
 import { db, auth } from "./firebase"
 
 // ─────────────────────────────────────────────────────
+// DEBUG UTILITY — logs only in development
+// ─────────────────────────────────────────────────────
+const isDev = import.meta.env.DEV
+const log   = (...args) => isDev && console.log("[Progress]", ...args)
+const warn  = (...args) => isDev && console.error("[Progress]", ...args)
+
+// ─────────────────────────────────────────────────────
 // KEYS — all progress keys start with these prefixes
 // ─────────────────────────────────────────────────────
 const PROGRESS_PREFIXES = ["watch_", "surahDone_"]
@@ -40,7 +47,7 @@ export function clearLocalProgress() {
     if (isProgressKey(key)) keysToRemove.push(key)
   }
   keysToRemove.forEach(key => localStorage.removeItem(key))
-  console.log(`[Progress] Cleared ${keysToRemove.length} local progress keys`)
+  log(`Cleared ${keysToRemove.length} local progress keys`)
 }
 
 // ─────────────────────────────────────────────────────
@@ -65,28 +72,22 @@ function getUserDocRef(uid) {
 // ─────────────────────────────────────────────────────
 export async function loadCloudProgress(uid) {
   try {
-    const ref = getUserDocRef(uid)
+    const ref  = getUserDocRef(uid)
     const snap = await getDoc(ref)
 
-    // FIX: wipe any leftover progress from a previous account before
-    // writing this user's data — prevents cross-account contamination
     clearLocalProgress()
 
     if (snap.exists()) {
       const cloudProgress = snap.data().progress || {}
-
-      // Write this user's cloud progress to localStorage
       setLocalProgress(cloudProgress)
-
-      console.log(`[Progress] Synced ${Object.keys(cloudProgress).length} items from cloud`)
+      log(`Synced ${Object.keys(cloudProgress).length} items from cloud`)
       return cloudProgress
     } else {
-      // First time user — nothing in cloud yet, localStorage is already cleared
-      console.log("[Progress] New user, starting fresh")
+      log("New user, starting fresh")
       return {}
     }
   } catch (err) {
-    console.error("[Progress] Cloud sync failed, using local only:", err)
+    warn("Cloud sync failed, using local only:", err)
     return getAllLocalProgress()
   }
 }
@@ -96,19 +97,15 @@ export async function loadCloudProgress(uid) {
 // Called when user marks a video as watched
 // ─────────────────────────────────────────────────────
 export async function saveProgress(uid, key, value) {
-  // Always save to localStorage first (instant)
   localStorage.setItem(key, value)
 
-  // Then sync to cloud (background)
   if (!uid) return
 
   try {
     const ref = getUserDocRef(uid)
-    await setDoc(ref, {
-      progress: { [key]: value }
-    }, { merge: true })
+    await setDoc(ref, { progress: { [key]: value } }, { merge: true })
   } catch (err) {
-    console.error("[Progress] Failed to save to cloud:", err)
+    warn("Failed to save to cloud:", err)
   }
 }
 
@@ -126,7 +123,7 @@ export async function saveProgressBatch(uid, updates) {
     const ref = getUserDocRef(uid)
     await setDoc(ref, { progress: updates }, { merge: true })
   } catch (err) {
-    console.error("[Progress] Batch save to cloud failed:", err)
+    warn("Batch save to cloud failed:", err)
   }
 }
 
@@ -142,13 +139,13 @@ export async function saveUserProfile(uid, user) {
     await setDoc(ref, {
       profile: {
         displayName: user.displayName || "",
-        email: user.email || "",
-        photoURL: user.photoURL || "",
-        lastLogin: new Date().toISOString(),
+        email:       user.email       || "",
+        photoURL:    user.photoURL    || "",
+        lastLogin:   new Date().toISOString(),
       }
     }, { merge: true })
   } catch (err) {
-    console.error("[Progress] Failed to save profile:", err)
+    warn("Failed to save profile:", err)
   }
 }
 
@@ -160,52 +157,45 @@ export async function deleteUserAccount(uid) {
   if (!uid) throw new Error("No user ID provided")
 
   try {
-    // 1. Delete Firestore document
     const ref = getUserDocRef(uid)
     await deleteDoc(ref)
-    console.log("[Progress] Deleted Firestore document")
+    log("Deleted Firestore document")
 
-    // 2. Delete Firebase Auth account
     const currentUser = auth.currentUser
     if (currentUser && currentUser.uid === uid) {
       await deleteUser(currentUser)
-      console.log("[Progress] Deleted Auth account")
+      log("Deleted Auth account")
     }
 
-    // 3. Clear all local storage
     clearLocalProgress()
-    console.log("[Progress] Cleared local storage")
+    log("Cleared local storage")
 
     return { success: true }
   } catch (err) {
-    console.error("[Progress] Failed to delete account:", err)
+    warn("Failed to delete account:", err)
     throw err
   }
 }
 
 // ─────────────────────────────────────────────────────
-// GET course progress from localStorage (no video IDs needed)
-// Scans localStorage for all watch_ keys matching the courseId
+// GET course progress from localStorage
 // ─────────────────────────────────────────────────────
 export function getCourseProgressFromStorage(courseId) {
   const prefix = `watch_${courseId}_`
   let watchedCount = 0
-  let totalCount = 0
+  let totalCount   = 0
 
-  // Scan localStorage for all keys matching this course
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i)
     if (key && key.startsWith(prefix)) {
       totalCount++
-      if (localStorage.getItem(key) === "true") {
-        watchedCount++
-      }
+      if (localStorage.getItem(key) === "true") watchedCount++
     }
   }
 
   return {
     watched: watchedCount,
-    total: totalCount,
+    total:   totalCount,
     percent: totalCount > 0 ? Math.round((watchedCount / totalCount) * 100) : 0
   }
 }
