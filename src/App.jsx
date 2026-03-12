@@ -1,10 +1,11 @@
 import { lazy, Suspense } from "react"
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
-import { AuthProvider, useAuth } from "./context/AuthContext"
+import { AuthProvider } from "./context/AuthContext"
 import ErrorBoundary from "./components/ErrorBoundary"
 import LoadingScreen from "./components/LoadingScreen"
 import ScrollToTop from "./components/ScrollToTop"
 import SuggestCourseButton from "./components/SuggestCourseButton"
+import ProtectedRoute from "./components/ProtectedRoute"
 
 // Pages — lazy loaded for code splitting
 const Home          = lazy(() => import("./pages/Home"))
@@ -21,20 +22,6 @@ const NotFound      = lazy(() => import("./pages/NotFound"))
 const PrivacyPage   = lazy(() => import("./pages/PrivacyPage"))
 const TermsPage     = lazy(() => import("./pages/TermsPage"))
 
-// Protected Route Component
-function ProtectedRoute({ children }) {
-  const { user, loading } = useAuth()
-
-  if (loading) {
-    return <LoadingScreen message="جاري التحقق من حالة تسجيل الدخول..." />
-  }
-
-  if (!user) {
-    return <Navigate to="/login" replace />
-  }
-
-  return children
-}
 
 function App() {
   return (
