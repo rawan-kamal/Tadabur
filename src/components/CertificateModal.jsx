@@ -62,7 +62,7 @@ export default function CertificateModal({ isOpen, onClose }) {
           <i className="fa-solid fa-award"></i>
         </div>
 
-        <h2 className="cert-title">🎉 مبارك! أتممت القرآن الكريم كاملاً</h2>
+        <h2 className="cert-title">مبارك! أتممت تدبر القران الكريم كاملاً</h2>
         <p className="cert-subtitle">احصل على شهادة تقدير لإنجازك العظيم</p>
 
         <div className="cert-input-group">

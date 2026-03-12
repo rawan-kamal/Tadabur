@@ -1,0 +1,129 @@
+/* ══════════════════════════════════════════════════════
+   LOADING SCREEN
+   ══════════════════════════════════════════════════════ */
+
+.ls-shell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #faf8f5 0%, #f5f1eb 100%);
+}
+
+.ls-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  animation: lsFadeIn 0.4s ease;
+}
+
+@keyframes lsFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ls-spinner {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ls-spinner-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: var(--primary-color);
+  animation: lsRotate 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+}
+
+.ls-spinner-ring:nth-child(2) {
+  width: 80%;
+  height: 80%;
+  border-top-color: #d4c4ae;
+  animation-duration: 2s;
+  animation-delay: 0.2s;
+}
+
+.ls-spinner-ring:nth-child(3) {
+  width: 60%;
+  height: 60%;
+  border-top-color: rgba(194, 176, 152, 0.5);
+  animation-duration: 2.5s;
+  animation-delay: 0.4s;
+}
+
+@keyframes lsRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.ls-spinner-icon {
+  font-size: 2rem;
+  color: var(--primary-color);
+  animation: lsPulse 2s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes lsPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+.ls-message {
+  font-family: 'Cairo', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  margin: 0;
+  animation: lsTextPulse 2s ease-in-out infinite;
+}
+
+@keyframes lsTextPulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════════════ */
+
+@media (max-width: 640px) {
+  .ls-spinner {
+    width: 80px;
+    height: 80px;
+  }
+
+  .ls-spinner-icon {
+    font-size: 1.6rem;
+  }
+
+  .ls-message {
+    font-size: 1rem;
+  }
+}

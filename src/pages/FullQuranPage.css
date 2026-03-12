@@ -502,8 +502,8 @@
   padding: 0.9rem 1.2rem;
   margin-top: 1rem;
   border-radius: 100px;
-  border: 2px solid #ffd700;
-  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  border: 2px solid #ffe965;
+  background: #ffe965;
   color: #24211c;
   font-family: 'Cairo', sans-serif;
   font-size: 0.9rem;
@@ -514,10 +514,10 @@
   justify-content: center;
   gap: 0.5rem;
   transition: all 0.25s ease;
-  box-shadow: 0 4px 14px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 4px 14px var(--primary-color);
 }
 
 .fq-certificate-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+  box-shadow: 0 6px 20px var(--primary-color);
 }

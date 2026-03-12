@@ -63,14 +63,14 @@
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  background: var(--primary-color);
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 1.5rem;
   font-size: 2.5rem;
   color: #24211c;
-  box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
+  box-shadow: 0 8px 24px var(--primary-color);
 }
 
 .cert-title {
@@ -152,25 +152,25 @@
 }
 
 .cert-btn-primary {
-  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  background: var(--primary-color);
   color: #24211c;
-  box-shadow: 0 4px 14px rgba(255, 215, 0, 0.4);
+  box-shadow: 0 4px 14px var(--primary-color);
 }
 
 .cert-btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+  box-shadow: 0 6px 20px var(--primary-color);
 }
 
 .cert-btn-download {
   background: var(--primary-dark, #24211c);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(36, 33, 28, 0.3);
+  box-shadow: 0 4px 14px var(--primary-dark);
 }
 
 .cert-btn-download:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(36, 33, 28, 0.4);
+  box-shadow: 0 6px 20px var(--primary-dark);
 }
 
 @media (max-width: 640px) {
