@@ -17,6 +17,8 @@ import LoginPage from "./pages/LoginPage"
 import AboutPage from "./pages/AboutPage"
 import AboutusPage from "./pages/AboutusPage"
 import NotFound from "./pages/NotFound"
+import PrivacyPage from "./pages/PrivacyPage"
+import TermsPage from "./pages/TermsPage"
 
 // Protected Route Component
 function ProtectedRoute({ children }) {
@@ -47,6 +49,8 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/aboutus" element={<AboutusPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/terms" element={<TermsPage />} />
             
             {/* ── COURSES ── */}
             <Route path="/courses" element={<CoursesPage />} />
