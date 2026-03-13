@@ -48,7 +48,7 @@ function CourseCard({ course }) {
   }
 
   return (
-    <div className="cp-card" onClick={() => navigate(course.path || `/course/${course.id}`)}>
+  <div className="cp-card" onClick={() => navigate(course.path || `/course/${course.id}`)} role="button" tabIndex={0}>
       <div className="cp-card-strip" style={{ background: stripColor }} />
       <div className="cp-card-body">
         <div className="cp-card-top">
@@ -115,7 +115,7 @@ function FullQuranCard({ course }) {
   }
 
   return (
-    <div className="cp-card" onClick={() => navigate(course.path)}>
+    <div className="cp-card" onClick={() => navigate(course.path)} role="button" tabIndex={0}>
       <div className="cp-card-strip" style={{ background: stripColor }} />
       <div className="cp-card-body">
         <div className="cp-card-top">

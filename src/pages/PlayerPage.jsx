@@ -23,7 +23,7 @@ function extractAyahs(title) {
   if (!title) return null
   const toWestern = (str) =>
     parseInt(str.replace(/[\u0660-\u0669]/g, d => d.charCodeAt(0) - 0x0660), 10)
-  const regex = /(?:ال)?[آا]ي[هةاتن]*[:\s]*([\u0660-\u0669\d]+)(?:\s*[-–—]\s*([\u0660-\u0669\d]+))?/
+  const regex = /(?:ال)?[آا]ي[هةاتن]*\s*[:\s(]*([\u0660-\u0669\d]+)(?:\s*[-–—]\s*([\u0660-\u0669\d]+))?/
   const match = title.match(regex)
   if (!match) return null
   const start = toWestern(match[1])
@@ -219,14 +219,10 @@ export default function PlayerPage() {
               const isActive  = video.videoId === videoId
               const realIndex = videos.findIndex(v => v.videoId === video.videoId)
               return (
-                <div
-                  key={video.videoId}
-                  className={`plr-lesson ${isActive ? "plr-active" : ""} ${watched ? "plr-watched" : ""}`}
-                  onClick={() => {
-                    navigate(`/${basePath}/${video.videoId}`)
-                    setMobileMenuOpen(false)
-                  }}
-                >
+                <div key={video.videoId} className={`plr-lesson ${isActive ? "plr-active" : ""} ${watched ? "plr-watched" : ""}`} role="button" tabIndex={0} onClick={() => {
+                  navigate(`/${basePath}/${video.videoId}`)
+                  setMobileMenuOpen(false)
+                }}>
                   <div className="plr-lesson-num">
                     {watched
                       ? <i className="fa-solid fa-check"></i>

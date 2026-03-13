@@ -262,11 +262,7 @@ export default function SurahPlayerPage() {
             </div>
             <div className="sp-drawer-list">
               {episodes.map(ep => (
-                <div
-                  key={ep}
-                  className={`sp-episode-item ${ep === currentEpisode ? "sp-ep-active" : ""} ${watchedMap[ep] ? "sp-ep-done" : ""}`}
-                  onClick={() => { setCurrentEpisode(ep); setDrawerOpen(false) }}
-                >
+                <div key={ep} className={`sp-episode-item ${ep === currentEpisode ? "sp-ep-active" : ""} ${watchedMap[ep] ? "sp-ep-done" : ""}`} role="button" tabIndex={0} onClick={() => { setCurrentEpisode(ep); setDrawerOpen(false) }}>
                   <div className="sp-episode-icon">
                     {watchedMap[ep] ? <i className="fa-solid fa-check"></i> : ep}
                   </div>

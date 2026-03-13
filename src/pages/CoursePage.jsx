@@ -186,11 +186,7 @@ export default function CoursePage() {
                     const realIdx  = videos.findIndex(v => v.videoId === video.videoId)
                     const surahNum = extractSurahFromTitle(video.title)
                     return (
-                      <div
-                        key={video.videoId}
-                        className={`cov-lesson ${watched ? "cov-watched" : ""}`}
-                        onClick={() => navigate(`/${basePath}/${video.videoId}`)}
-                      >
+                      <div key={video.videoId} className={`cov-lesson ${watched ? "cov-watched" : ""}`} onClick={() => navigate(`/${basePath}/${video.videoId}`)} role="button" tabIndex={0}>
                         <div className={`cov-lesson-num ${watched ? "cov-num-done" : ""}`}>
                           {watched ? <i className="fa-solid fa-check"></i> : realIdx + 1}
                         </div>
