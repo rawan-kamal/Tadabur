@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { usePlaylistVideos } from "../hooks/usePlaylistVideos"
 import {
@@ -28,7 +28,12 @@ export default function CoursePage() {
   const course = courseId ? PLAYLIST_COURSES.find(c => c.id === courseId) : INTRO_COURSE
   const basePath = courseId ? `course/${courseId}` : "mafateeh"
 
-  const { videos, loading } = usePlaylistVideos(course?.playlistId)
+  const REVERSED_PLAYLISTS = ["playlist-6", "playlist-7"]
+  const { videos: rawVideos, loading } = usePlaylistVideos(course?.playlistId)
+  const videos = useMemo(() =>
+    REVERSED_PLAYLISTS.includes(course?.id) ? [...rawVideos].reverse() : rawVideos,
+    [rawVideos, course?.id]
+  )
   const [progress, setProgress] = useState({ watched: 0, total: 0, percent: 0 })
   const [search, setSearch] = useState("")
 
@@ -181,11 +186,7 @@ export default function CoursePage() {
                     const realIdx  = videos.findIndex(v => v.videoId === video.videoId)
                     const surahNum = extractSurahFromTitle(video.title)
                     return (
-                      <div
-                        key={video.videoId}
-                        className={`cov-lesson ${watched ? "cov-watched" : ""}`}
-                        onClick={() => navigate(`/${basePath}/${video.videoId}`)}
-                      >
+                      <div key={video.videoId} className={`cov-lesson ${watched ? "cov-watched" : ""}`} onClick={() => navigate(`/${basePath}/${video.videoId}`)} role="button" tabIndex={0}>
                         <div className={`cov-lesson-num ${watched ? "cov-num-done" : ""}`}>
                           {watched ? <i className="fa-solid fa-check"></i> : realIdx + 1}
                         </div>

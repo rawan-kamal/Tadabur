@@ -163,11 +163,7 @@ export default function FullQuranPage() {
                   const percent = surahProgress[surah.number] || 0 // NEW: Get actual progress
                   
                   return (
-                    <div
-                      key={surah.number}
-                      className={`fq-surah-card ${done ? "fq-done" : ""}`}
-                      onClick={() => navigate(`/full-quran/${surah.number}`)}
-                    >
+                    <div key={surah.number} className={`fq-surah-card ${done ? "fq-done" : ""}`} onClick={() => navigate(`/full-quran/${surah.number}`)} role="button" tabIndex={0}>
                       <div className={`fq-surah-num ${done ? "fq-num-done" : ""}`}>
                         {done ? <i className="fa-solid fa-check"></i> : surah.number}
                       </div>

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useMemo } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { usePlaylistVideos } from "../hooks/usePlaylistVideos"
 import {
@@ -19,6 +19,19 @@ function cleanTitle(title, cleanupWords = []) {
   return t.replace(/\|/g, "").replace(/\s+/g, " ").trim()
 }
 
+function extractAyahs(title) {
+  if (!title) return null
+  const toWestern = (str) =>
+    parseInt(str.replace(/[\u0660-\u0669]/g, d => d.charCodeAt(0) - 0x0660), 10)
+  const regex = /(?:ال)?[آا]ي[هةاتن]*\s*[:\s(]*([\u0660-\u0669\d]+)(?:\s*[-–—]\s*([\u0660-\u0669\d]+))?/
+  const match = title.match(regex)
+  if (!match) return null
+  const start = toWestern(match[1])
+  const end   = match[2] ? toWestern(match[2]) : null
+  if (isNaN(start)) return null
+  return { start, end }
+}
+
 export default function PlayerPage() {
   const { courseId, videoId } = useParams()
   const navigate = useNavigate()
@@ -30,7 +43,11 @@ export default function PlayerPage() {
 
   const { videos: rawVideos, loading } = usePlaylistVideos(course?.playlistId)
 
-  const videos = rawVideos
+  const REVERSED_PLAYLISTS = ["playlist-6", "playlist-7"]
+  const videos = useMemo(() =>
+    REVERSED_PLAYLISTS.includes(course?.id) ? [...rawVideos].reverse() : rawVideos,
+    [rawVideos, course?.id]
+  )
 
   const [progress, setProgress]         = useState({ watched: 0, total: 0, percent: 0 })
   const [search, setSearch]             = useState("")
@@ -46,9 +63,16 @@ export default function PlayerPage() {
 
   const surahNum  = currentVideo ? extractSurahFromTitle(currentVideo.title) : null
   const juzNum    = currentVideo ? extractJuzFromTitle(currentVideo.title)   : null
-  const quranUrl  = surahNum ? `https://quran.com/${surahNum}`
-                 : juzNum   ? `https://quran.com/juz/${juzNum}`
-                 : null
+  const ayahs    = currentVideo ? extractAyahs(currentVideo.title) : null
+  const quranUrl = surahNum && ayahs?.end
+    ? `https://quran.com/${surahNum}/${ayahs.start}-${ayahs.end}`
+    : surahNum && ayahs?.start
+    ? `https://quran.com/${surahNum}/${ayahs.start}`
+    : surahNum
+    ? `https://quran.com/${surahNum}`
+    : juzNum
+    ? `https://quran.com/juz/${juzNum}`
+    : null
   const showQuran = !!courseId && !!quranUrl
 
   const refreshProgress = useCallback(() => {
@@ -195,14 +219,10 @@ export default function PlayerPage() {
               const isActive  = video.videoId === videoId
               const realIndex = videos.findIndex(v => v.videoId === video.videoId)
               return (
-                <div
-                  key={video.videoId}
-                  className={`plr-lesson ${isActive ? "plr-active" : ""} ${watched ? "plr-watched" : ""}`}
-                  onClick={() => {
-                    navigate(`/${basePath}/${video.videoId}`)
-                    setMobileMenuOpen(false)
-                  }}
-                >
+                <div key={video.videoId} className={`plr-lesson ${isActive ? "plr-active" : ""} ${watched ? "plr-watched" : ""}`} role="button" tabIndex={0} onClick={() => {
+                  navigate(`/${basePath}/${video.videoId}`)
+                  setMobileMenuOpen(false)
+                }}>
                   <div className="plr-lesson-num">
                     {watched
                       ? <i className="fa-solid fa-check"></i>
