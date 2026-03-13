@@ -26,7 +26,7 @@ export function AuthProvider({ children }) {
 
       if (u) {
         try {
-          await loadCloudProgress(u.uid)   // clears local first, then loads this user's data
+          await loadCloudProgress(u.uid)
           await saveUserProfile(u.uid, u)
         } catch (err) {
           console.error("Failed to sync progress:", err)
@@ -44,14 +44,14 @@ export function AuthProvider({ children }) {
     try {
       const provider = new GoogleAuthProvider()
       await signInWithPopup(auth, provider)
+    } catch (err) {
+      console.error("Login error:", err.code, err.message)
     } finally {
       loginInProgress.current = false
     }
   }
 
   const logout = () => {
-    // FIX: wipe local progress immediately on logout so the next user
-    // (or the same user on a shared device) starts from a clean slate
     clearLocalProgress()
     signOut(auth)
   }
