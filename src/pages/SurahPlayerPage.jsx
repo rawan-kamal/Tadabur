@@ -51,12 +51,10 @@ export default function SurahPlayerPage() {
 
   const videos = useMemo(() => {
     if (!rawVideos.length) return []
-    const filtered = filterCourseVideos(rawVideos, 'full-quran')
-    const deduped = Array.from(new Map(filtered.map(v => [v.videoId, v])).values())
-    
-    // Reverse order for Surah 35 (فاطر) only
-    return num === 35 ? [...deduped].reverse() : deduped
-  }, [rawVideos, num])
+    const filtered = filterCourseVideos(rawVideos, "full-quran")
+    const deduped  = Array.from(new Map(filtered.map(v => [v.videoId, v])).values())
+    return deduped
+  }, [rawVideos])
 
   const [currentEpisode, setCurrentEpisode] = useState(1)
   const [watchedMap, setWatchedMap]         = useState({})
