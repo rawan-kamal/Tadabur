@@ -226,7 +226,7 @@ export default function Home() {
             </div>
 
             {/* CARD 2 — مجالس القرآن */}
-            <div className="h-best-card" onClick={() => navigate(`/course/${PLAYLIST_COURSES[0]?.id}`)}>
+            <div className="h-best-card" onClick={() => navigate(`/course/${PLAYLIST_COURSES[1]?.id}`)}>
               <h3 className="h-best-title">مجالس القرآن</h3>
               <p className="h-best-instructor">د. أحمد عبد المنعم</p>
               <p className="h-best-desc">وقفات تدبرية مع سور القرآن الكريم مرتبة حسب ترتيب المصحف مع د احمد عبد المنعم</p>
