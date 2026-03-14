@@ -1,6 +1,6 @@
 /* ── GOOGLE FONTS ────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
-
+@import "tailwindcss";
 /* ── GLOBAL DESIGN TOKENS ───────────────────────────── */
 :root {
   --primary-text-color: #564734;

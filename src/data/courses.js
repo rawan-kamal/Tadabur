@@ -23,7 +23,7 @@ export const INTRO_COURSE = {
   description: "تعلّم أساسيات التدبر ومفاتيح فهم القرآن الكريم — نقطة البداية لكل رحلة تدبر",
   track: "mafateeh",
   type: "single-playlist",
-  playlistId: "PLukAHj56HNKbD2R2ZroUhu7g-mK1S6CrW",
+  playlistId: "PLukAHj56HNKanxm3TkWWGXrMTGm2xpqGU",
   titleCleanup: ["فاضل سليمان", "من دورة مفاتح التدبر", "|"],
 }
 

@@ -49,6 +49,23 @@ export default function PlayerPage() {
     [rawVideos, course?.id]
   )
 
+const sortedVideos = useMemo(() => {
+  if (course?.id !== "playlist-1") return videos
+  return [...videos].sort((a, b) => {
+    const sa = extractSurahFromTitle(a.title) ?? 999
+    const sb = extractSurahFromTitle(b.title) ?? 999
+    if (sa !== sb) return sa - sb
+
+    // Same surah → sort by start ayah, no-ayah lessons go last
+    const ayahA = extractAyahs(a.title)?.start ?? 9999
+    const ayahB = extractAyahs(b.title)?.start ?? 9999
+    if (ayahA !== ayahB) return ayahA - ayahB
+
+    // Same ayah (or both have none) → preserve original order
+    return videos.indexOf(a) - videos.indexOf(b)
+  })
+}, [videos, course?.id])
+
   const [progress, setProgress]         = useState({ watched: 0, total: 0, percent: 0 })
   const [search, setSearch]             = useState("")
   const [toast, setToast]               = useState("")
@@ -56,10 +73,10 @@ export default function PlayerPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [listPanelVisible, setListPanelVisible] = useState(true)
 
-  const currentIndex = videos.findIndex(v => v.videoId === videoId)
-  const currentVideo = videos[currentIndex]
-  const prevVideo    = videos[currentIndex - 1]
-  const nextVideo    = videos[currentIndex + 1]
+  const currentIndex = sortedVideos.findIndex(v => v.videoId === videoId)
+  const currentVideo = sortedVideos[currentIndex]
+  const prevVideo    = sortedVideos[currentIndex - 1]
+  const nextVideo    = sortedVideos[currentIndex + 1]
 
   const surahNum  = currentVideo ? extractSurahFromTitle(currentVideo.title) : null
   const juzNum    = currentVideo ? extractJuzFromTitle(currentVideo.title)   : null
@@ -85,7 +102,7 @@ export default function PlayerPage() {
     if (!course) { navigate("/"); return }
     refreshProgress()
     setShowComplete(false)
-    setMobileMenuOpen(false) // Close menu on video change
+    setMobileMenuOpen(false)
   }, [videoId, videos])
 
   const showToast = (msg) => { setToast(msg); setTimeout(() => setToast(""), 2500) }
@@ -103,7 +120,7 @@ export default function PlayerPage() {
   }
 
   const isWatched = isVideoWatched_Single(course?.id, videoId)
-  const filtered  = videos.filter(v =>
+  const filtered  = sortedVideos.filter(v =>
     cleanTitle(v.title, course?.titleCleanup).includes(search)
   )
   const title = (v) => cleanTitle(v.title, course?.titleCleanup)
@@ -162,7 +179,9 @@ export default function PlayerPage() {
 
       {/* Mobile Breadcrumb - Course Name Only */}
       <div className="plr-bc-mobile">
-        <span className="plr-bc-course-name">{course.title}</span>
+        <button className="plr-bc-btn" onClick={() => navigate(listPath)}>
+          <span>{course.title}</span>
+        </button>
       </div>
 
     </div>
@@ -217,7 +236,7 @@ export default function PlayerPage() {
             {filtered.map(video => {
               const watched   = isVideoWatched_Single(course.id, video.videoId)
               const isActive  = video.videoId === videoId
-              const realIndex = videos.findIndex(v => v.videoId === video.videoId)
+              const realIndex = sortedVideos.findIndex(v => v.videoId === video.videoId)
               return (
                 <div key={video.videoId} className={`plr-lesson ${isActive ? "plr-active" : ""} ${watched ? "plr-watched" : ""}`} role="button" tabIndex={0} onClick={() => {
                   navigate(`/${basePath}/${video.videoId}`)
@@ -244,7 +263,7 @@ export default function PlayerPage() {
             <div className="plr-video-label">
               <i className="fa-solid fa-video"></i>
               الفيديو
-              <span className="plr-ep-badge">الدرس {currentIndex + 1} / {videos.length}</span>
+              <span className="plr-ep-badge">الدرس {currentIndex + 1} / {sortedVideos.length}</span>
             </div>
             <div className="plr-video-title">
               {currentVideo ? title(currentVideo) : ""}

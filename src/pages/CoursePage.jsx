@@ -21,6 +21,19 @@ function cleanTitle(title, cleanupWords = []) {
   return t.replace(/\|/g, "").replace(/\s+/g, " ").trim()
 }
 
+function extractAyahs(title) {
+  if (!title) return null
+  const toWestern = (str) =>
+    parseInt(str.replace(/[\u0660-\u0669]/g, d => d.charCodeAt(0) - 0x0660), 10)
+  const regex = /(?:ال)?[آا]ي[هةاتن]*\s*[:\s(]*([\u0660-\u0669\d]+)(?:\s*[-–—]\s*([\u0660-\u0669\d]+))?/
+  const match = title.match(regex)
+  if (!match) return null
+  const start = toWestern(match[1])
+  const end   = match[2] ? toWestern(match[2]) : null
+  if (isNaN(start)) return null
+  return { start, end }
+}
+
 export default function CoursePage() {
   const { courseId } = useParams()
   const navigate = useNavigate()
@@ -34,6 +47,23 @@ export default function CoursePage() {
     REVERSED_PLAYLISTS.includes(course?.id) ? [...rawVideos].reverse() : rawVideos,
     [rawVideos, course?.id]
   )
+const sortedVideos = useMemo(() => {
+  if (course?.id !== "playlist-1") return videos
+  return [...videos].sort((a, b) => {
+    const sa = extractSurahFromTitle(a.title) ?? 999
+    const sb = extractSurahFromTitle(b.title) ?? 999
+    if (sa !== sb) return sa - sb
+
+    // Same surah → sort by start ayah, no-ayah lessons go last
+    const ayahA = extractAyahs(a.title)?.start ?? 9999
+    const ayahB = extractAyahs(b.title)?.start ?? 9999
+    if (ayahA !== ayahB) return ayahA - ayahB
+
+    // Same ayah (or both have none) → preserve original order
+    return videos.indexOf(a) - videos.indexOf(b)
+  })
+}, [videos, course?.id])
+
   const [progress, setProgress] = useState({ watched: 0, total: 0, percent: 0 })
   const [search, setSearch] = useState("")
 
@@ -54,7 +84,7 @@ export default function CoursePage() {
 
   const strokeOffset = CIRCUMFERENCE - (progress.percent / 100) * CIRCUMFERENCE
 
-  const filtered = videos.filter(v =>
+  const filtered = sortedVideos.filter(v =>
     cleanTitle(v.title, course.titleCleanup).includes(search)
   )
 
@@ -144,7 +174,6 @@ export default function CoursePage() {
                   { label: "الشيخ",      value: course.instructor || "فاضل سليمان" },
                   { label: "عدد الدروس", value: `${videos.length} درس` },
                   { label: "المسار",     value: course.title },
-                  // { label: "المستوى",    value: courseId ? "متوسط" : "مبتدئ" },
                 ].map(r => (
                   <div className="sc-info-row" key={r.label}>
                     <span className="sc-info-key">{r.label}</span>
@@ -183,7 +212,7 @@ export default function CoursePage() {
                   {filtered.map((video) => {
                     const watched  = isVideoWatched_Single(course.id, video.videoId)
                     const title    = cleanTitle(video.title, course.titleCleanup)
-                    const realIdx  = videos.findIndex(v => v.videoId === video.videoId)
+                    const realIdx = sortedVideos.findIndex(v => v.videoId === video.videoId)
                     const surahNum = extractSurahFromTitle(video.title)
                     return (
                       <div key={video.videoId} className={`cov-lesson ${watched ? "cov-watched" : ""}`} onClick={() => navigate(`/${basePath}/${video.videoId}`)} role="button" tabIndex={0}>
@@ -193,7 +222,7 @@ export default function CoursePage() {
                         <div className="cov-lesson-info">
                           <div className="cov-lesson-title">{title}</div>
                           <div className="cov-lesson-sub">
-                            <span>الدرس {realIdx + 1} من {videos.length}</span>
+                            <span>الدرس {realIdx + 1} من {sortedVideos.length}</span>
                           </div>
                         </div>
                         <div className="cov-lesson-arrow">
