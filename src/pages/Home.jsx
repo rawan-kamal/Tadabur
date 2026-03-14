@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom"
 import { PLAYLIST_COURSES, INTRO_COURSE, FULL_QURAN_COURSE } from "../data/courses"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
-import Sparkles from "../components/Sparkles"
 import "./Home.css"
 import "../responsive-fixes.css"
 
@@ -43,8 +42,6 @@ export default function Home() {
 
   return (
     <div className="home-page">
-      <Sparkles />
-
       <Navbar />
 
       {/* ── HERO ───────────────────────────────── */}
@@ -172,8 +169,7 @@ export default function Home() {
             <div className="overlay h-rounded-left">
                <h2 className="h-track-title">تعلم مفاتيح التدبر</h2>
                 <p className="h-track-desc">
-                    ابدأ رحلتك من الأساسيات عبر منهج مبسّط يعرّفك على أهم مفاتيح التدبّر، وكيفية فهم المعاني
-                    وربط الآيات بسياقها، لتتمكن من التدبّر الصحيح في أي سورة.
+                  دورة تضع قدم المشاهد على أول طريق تدبر القرآن العظيم من خلال إعطائه مفاتيح يستخدمها في فتح أبواب التدبر و كشف أسراره. الدورة مهمة جدا و ينصح بتطبيق مفاتيحها لمدة ساعة كل يوم
                 </p>
                 <button className="h-track-arrow-btn" onClick={() => navigate("/mafateeh")}>
                     <i className="bi bi-arrow-up-left-circle-fill h-arrow-icon"></i>
@@ -185,8 +181,7 @@ export default function Home() {
             <div className="overlay h-rounded-middle">
             <h2 className="h-track-title">تدبر القران كاملا</h2>
             <p className="h-track-desc">
-              انطلق في رحلة شاملة تغطي القرآن الكريم كاملاً من خلال دورات متكاملة يقدمها شيوخ متخصصون،
-              مصمّمة لتمنحك فهماً تدريجياً وواضحاً للمعاني.
+              انطلق في رحلة شاملة تغطي القرآن الكريم كاملاً، في دورة متكاملة يقدمها المهندس فاضل سليمان، مصمّمة لتمنحك فهماً تدريجياً وواضحاً للمعاني.
             </p>
             <button className="h-track-arrow-btn" onClick={() => navigate("/full-quran")}>
               <i className="bi bi-arrow-up-left-circle-fill h-arrow-icon"></i>
