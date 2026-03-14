@@ -1,5 +1,5 @@
-import { lazy, Suspense } from "react"
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
+import { lazy, Suspense, useEffect } from "react"
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom"
 import { AuthProvider } from "./context/AuthContext"
 import ErrorBoundary from "./components/ErrorBoundary"
 import LoadingScreen from "./components/LoadingScreen"
@@ -22,12 +22,22 @@ const NotFound      = lazy(() => import("./pages/NotFound"))
 const PrivacyPage   = lazy(() => import("./pages/PrivacyPage"))
 const TermsPage     = lazy(() => import("./pages/TermsPage"))
 
+function Analytics() {
+  const location = useLocation()
+  useEffect(() => {
+    if (window.gtag) {
+      window.gtag("config", "G-YYXJJ762MY", { page_path: location.pathname })
+    }
+  }, [location])
+  return null
+}
 
 function App() {
   return (
     <ErrorBoundary>
       <AuthProvider>
         <Router>
+          <Analytics />
           <ScrollToTop />
           <SuggestCourseButton />
 
