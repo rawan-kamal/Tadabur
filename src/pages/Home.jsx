@@ -181,7 +181,7 @@ export default function Home() {
             <div className="overlay h-rounded-middle">
             <h2 className="h-track-title">تدبر القران كاملا</h2>
             <p className="h-track-desc">
-              انطلق في رحلة شاملة تغطي القرآن الكريم كاملاً، في دورة متكاملة يقدمها المهندس فاضل سليمان، مصمّمة لتمنحك فهماً تدريجياً وواضحاً للمعاني.
+              انطلق في رحلة شاملة تغطي القرآن الكريم كاملاً، في دورة متكاملة يقدمها المهندس فاضل سليمان، مصمّمة لتمنحك فهماً تدريجياً وواضحاً للمعاني، وتساعدك على تدبر الآيات وربطها بحياتك اليومية.
             </p>
             <button className="h-track-arrow-btn" onClick={() => navigate("/full-quran")}>
               <i className="bi bi-arrow-up-left-circle-fill h-arrow-icon"></i>
@@ -193,8 +193,7 @@ export default function Home() {
             <div className="overlay h-rounded-right">
             <h2 className="h-track-title">دورات متنوعة</h2>
             <p className="h-track-desc">
-              دوراتنا مختارة بعناية لمساعدتك على بناء علاقة أعمق مع القرآن، خطوة بخطوة.
-              استكشف مجموعة متنوعة من الدورات التخصصية التي تغطي مواضيع قرآنية مختلفة.
+              دورات مختارة بعناية تُعمّق علاقتك بالقرآن الكريم، كل دورة تفتح باباً جديداً من أبواب الفهم والتأمل وتُقرّبك خطوة إضافية من كلام الله. تغطي مواضيع قرآنية متنوعة تناسب مختلف المستويات والاهتمامات.
             </p>
             <button className="h-track-arrow-btn" onClick={() => navigate("/courses")}>
               <i className="bi bi-arrow-up-left-circle-fill h-arrow-icon"></i>
@@ -226,14 +225,14 @@ export default function Home() {
               <button className="h-best-btn h-best-btn-gold h-rounded-pill">ابدأ الآن ←</button>
             </div>
 
-            {/* CARD 2 — Mafateeh */}
-            <div className="h-best-card" onClick={() => navigate("/mafateeh")}>
-              <h3 className="h-best-title">{INTRO_COURSE.title}</h3>
-              <p className="h-best-instructor">{INTRO_COURSE.instructor}</p>
-              <p className="h-best-desc">تعلّم أساسيات التدبر ومفاتيح فهم القرآن — نقطة البداية الصحيحة</p>
+            {/* CARD 2 — مجالس القرآن */}
+            <div className="h-best-card" onClick={() => navigate(`/course/${PLAYLIST_COURSES[0]?.id}`)}>
+              <h3 className="h-best-title">مجالس القرآن</h3>
+              <p className="h-best-instructor">د. أحمد عبد المنعم</p>
+              <p className="h-best-desc">وقفات تدبرية مع سور القرآن الكريم مرتبة حسب ترتيب المصحف مع د احمد عبد المنعم</p>
               <div className="h-best-chips">
-                <span>للمبتدئين</span>
-                <span>٣٠+ درس</span>
+                <span>تفسير</span>
+                <span>تدبر</span>
               </div>
               <button className="h-best-btn h-best-btn-outline h-rounded-pill">ابدأ الآن ←</button>
             </div>
